@@ -7,7 +7,6 @@ import AISearchVisibility from "@/components/sections/AISearchVisibility";
 import HowItWorks from "@/components/sections/HowItWorks";
 import AuditPreview from "@/components/sections/AuditPreview";
 import Services from "@/components/sections/Services";
-import CaseStudy from "@/components/sections/CaseStudy";
 import About from "@/components/sections/About";
 import WhoWeHelp from "@/components/sections/WhoWeHelp";
 import Offer from "@/components/sections/Offer";
@@ -26,7 +25,6 @@ export default function Home() {
         <HowItWorks />
         <AuditPreview />
         <Services />
-        <CaseStudy />
         <About />
         <WhoWeHelp />
         <Offer />

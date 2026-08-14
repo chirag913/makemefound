@@ -26,11 +26,7 @@ export default function About() {
           </p>
           <p>
             Before offering this to clients, we tested our own methodology on our own company,
-            running it through the same audit, build, and measurement process described above. See{" "}
-            <a href="#case-study" className="text-accent hover:text-accent-hover focus-ring rounded-md">
-              the case study
-            </a>{" "}
-            for details.
+            running it through the same audit, build, and measurement process described above.
           </p>
           <p className="text-sm text-fg-subtle">Founded 2026</p>
         </Reveal>
