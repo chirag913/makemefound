@@ -11,8 +11,8 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "#" },
-  { label: "X", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/makemefound" },
+  { label: "X", href: "https://x.com/makemefoundai" },
 ];
 
 export default function Footer() {
@@ -59,6 +59,8 @@ export default function Footer() {
             <a
               key={social.label}
               href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-fg-subtle hover:text-fg-muted focus-ring rounded-md"
               aria-label={social.label}
             >
