@@ -4,9 +4,9 @@ import { Pool } from "pg";
 // Never hardcode connection credentials here — configure via environment variables.
 let pool: Pool | undefined;
 
-export function getPool(): Pool {
+export function getPool(): Pool | undefined {
   if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL environment variable is not set.");
+    return undefined;
   }
   if (!pool) {
     pool = new Pool({
@@ -30,6 +30,11 @@ export async function insertAuditRequest(data: {
   priorityServices: string;
 }) {
   const db = getPool();
+  if (!db) {
+    // Not configured — skip silently so submissions still succeed via other channels
+    // (Google Sheet webhook, notification email) if those are set up.
+    return;
+  }
   await db.query(
     `CREATE TABLE IF NOT EXISTS audit_requests (
       id SERIAL PRIMARY KEY,

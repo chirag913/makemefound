@@ -1,11 +1,5 @@
 import Reveal from "../Reveal";
 
-const METRICS = [
-  { label: "AI visibility", before: "[--]%", after: "[--]%" },
-  { label: "Recommendation rate", before: "[--]%", after: "[--]%" },
-  { label: "Citation rate", before: "[--]%", after: "[--]%" },
-];
-
 export default function CaseStudy() {
   return (
     <section id="case-study" className="border-t border-border px-6 py-24 lg:px-8 lg:py-32">
@@ -21,25 +15,11 @@ export default function CaseStudy() {
           </p>
         </Reveal>
 
-        <Reveal delay={150}>
-          <div className="mt-12 rounded-2xl border border-border-strong bg-bg-card/60 p-6 sm:p-8">
-            <span className="text-xs font-medium uppercase tracking-wider text-fg-subtle">
-              Verified results to be published once available
-            </span>
-
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {METRICS.map((metric) => (
-                <div key={metric.label} className="rounded-xl border border-border bg-white/[0.02] p-5">
-                  <p className="text-xs text-fg-subtle">{metric.label}</p>
-                  <p className="mt-2 flex items-baseline gap-2 text-2xl font-semibold tracking-tight text-fg">
-                    <span className="text-fg-subtle">{metric.before}</span>
-                    <span className="text-fg-subtle">→</span>
-                    <span className="text-accent">{metric.after}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+        <Reveal delay={150} className="mt-8 flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-bg-card/60 px-4 py-2 text-xs font-medium uppercase tracking-wider text-fg-subtle">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Results in progress — verified numbers will be published here once available
+          </span>
         </Reveal>
 
         <Reveal delay={220} className="mt-8 flex justify-center">

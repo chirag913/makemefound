@@ -52,12 +52,18 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+select option {
+  background: var(--color-bg-raised);
+  color: var(--color-fg);
 }
 
 ::selection {

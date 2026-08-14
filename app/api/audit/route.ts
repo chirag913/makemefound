@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auditRequestSchema } from "@/lib/validation";
 import { insertAuditRequest } from "@/lib/db";
 import { sendAuditNotification } from "@/lib/email";
+import { sendToGoogleSheet } from "@/lib/googleSheet";
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -35,21 +36,24 @@ export async function POST(request: NextRequest) {
     priorityServices: parsed.data.priorityServices,
   };
 
-  try {
-    await insertAuditRequest(data);
-  } catch (error) {
-    console.error("Failed to store audit request:", error);
-    return NextResponse.json(
-      { error: "Something went wrong on our end. Please try again shortly." },
-      { status: 500 }
-    );
-  }
+  // Each destination is independent and best-effort — a visitor's submission should
+  // succeed as long as at least one of these is configured, and a failure in one
+  // (e.g. bad DB credentials) shouldn't block the others or the user-facing response.
+  const results = await Promise.allSettled([
+    insertAuditRequest(data),
+    sendToGoogleSheet(data),
+    sendAuditNotification(data),
+  ]);
 
-  try {
-    await sendAuditNotification(data);
-  } catch (error) {
-    // Storage succeeded — don't fail the request just because the notification email failed.
-    console.error("Failed to send audit notification email:", error);
+  const [dbResult, sheetResult, emailResult] = results;
+  if (dbResult.status === "rejected") {
+    console.error("Failed to store audit request in Postgres:", dbResult.reason);
+  }
+  if (sheetResult.status === "rejected") {
+    console.error("Failed to send audit request to Google Sheet:", sheetResult.reason);
+  }
+  if (emailResult.status === "rejected") {
+    console.error("Failed to send audit notification email:", emailResult.reason);
   }
 
   return NextResponse.json({ ok: true });

@@ -32,7 +32,7 @@ export default function About() {
             </a>{" "}
             for details.
           </p>
-          <p className="text-sm text-fg-subtle">[Founded YYYY]</p>
+          <p className="text-sm text-fg-subtle">Founded 2026</p>
         </Reveal>
       </div>
     </section>
