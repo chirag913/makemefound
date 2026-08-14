@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const FOOTER_LINKS = [
@@ -19,7 +20,10 @@ export default function Footer() {
     <footer className="border-t border-border px-6 py-14 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <p className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</p>
+          <div className="flex items-center gap-2.5">
+            <Image src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
+            <p className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</p>
+          </div>
           <p className="mt-1 text-sm text-fg-muted">AI Search Visibility for Local Businesses</p>
           <p className="mt-4 text-sm text-fg-subtle">
             <a href="mailto:hello@makemefound.com" className="hover:text-fg-muted focus-ring rounded-md">

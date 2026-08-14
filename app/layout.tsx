@@ -33,9 +33,6 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} — AI Search Visibility for Local Businesses`,
     description: SITE_DESCRIPTION,
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

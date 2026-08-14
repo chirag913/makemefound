@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import { useAuditModal } from "./AuditModalContext";
@@ -35,10 +36,13 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="#top" className="flex flex-col leading-tight focus-ring rounded-md">
-          <span className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</span>
-          <span className="text-[11px] font-medium uppercase tracking-wider text-fg-subtle">
-            AI Search Visibility
+        <a href="#top" className="flex items-center gap-2.5 focus-ring rounded-md">
+          <Image src="/logo-mark.png" alt="" width={32} height={32} className="h-8 w-8" priority />
+          <span className="flex flex-col leading-tight">
+            <span className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</span>
+            <span className="text-[11px] font-medium uppercase tracking-wider text-fg-subtle">
+              AI Search Visibility
+            </span>
           </span>
         </a>
 
