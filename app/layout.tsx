@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
-import { AuditModalProvider } from "@/components/AuditModalContext";
-import AuditModal from "@/components/AuditModal";
+import { CallModalProvider } from "@/components/CallModalContext";
+import CallModal from "@/components/CallModal";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ScrollDepthTracker from "@/components/ScrollDepthTracker";
 import OrganizationSchema from "@/components/OrganizationSchema";
@@ -16,12 +16,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — AI Search Visibility for Local Businesses`,
+    default: `${SITE_NAME} — Client Acquisition for Commercial Cleaning Companies`,
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   openGraph: {
-    title: `${SITE_NAME} — AI Search Visibility for Local Businesses`,
+    title: `${SITE_NAME} — Client Acquisition for Commercial Cleaning Companies`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — AI Search Visibility for Local Businesses`,
+    title: `${SITE_NAME} — Client Acquisition for Commercial Cleaning Companies`,
     description: SITE_DESCRIPTION,
   },
 };
@@ -40,10 +40,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-bg text-fg">
         <OrganizationSchema />
-        <AuditModalProvider>
+        <CallModalProvider>
           {children}
-          <AuditModal />
-        </AuditModalProvider>
+          <CallModal />
+        </CallModalProvider>
         <ScrollDepthTracker />
         <GoogleAnalytics />
       </body>

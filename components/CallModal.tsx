@@ -1,26 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useAuditModal } from "./AuditModalContext";
+import { useCallModal } from "./CallModalContext";
 import { trackEvent } from "@/lib/analytics";
-
-const INDUSTRIES = [
-  "Dental Practice",
-  "Med Spa",
-  "Home Remodeling",
-  "Interior Design",
-  "Other High-Ticket Local Service",
-];
 
 type FormState = {
   name: string;
   businessName: string;
   website: string;
-  city: string;
-  industry: string;
+  serviceArea: string;
   email: string;
   phone: string;
-  priorityServices: string;
+  idealAccounts: string;
   company_website: string;
 };
 
@@ -28,21 +19,20 @@ const initialState: FormState = {
   name: "",
   businessName: "",
   website: "",
-  city: "",
-  industry: "",
+  serviceArea: "",
   email: "",
   phone: "",
-  priorityServices: "",
+  idealAccounts: "",
   company_website: "",
 };
 
-export default function AuditModal() {
-  const { isOpen, closeModal } = useAuditModal();
+export default function CallModal() {
+  const { isOpen, closeModal } = useCallModal();
   if (!isOpen) return null;
-  return <AuditModalDialog onClose={closeModal} />;
+  return <CallModalDialog onClose={closeModal} />;
 }
 
-function AuditModalDialog({ onClose }: { onClose: () => void }) {
+function CallModalDialog({ onClose }: { onClose: () => void }) {
   const [form, setForm] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -104,7 +94,7 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
     trackEvent("form_submit");
 
     try {
-      const res = await fetch("/api/audit", {
+      const res = await fetch("/api/growth-call", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -115,7 +105,7 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
         throw new Error(data.error || "Something went wrong. Please try again.");
       }
 
-      trackEvent("audit_requested");
+      trackEvent("growth_call_requested");
       setStatus("success");
     } catch (err) {
       setStatus("error");
@@ -134,7 +124,7 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="audit-modal-title"
+        aria-labelledby="call-modal-title"
         className="relative w-full max-w-lg rounded-2xl border border-border-strong bg-bg-raised p-6 shadow-2xl sm:p-8"
       >
         <button
@@ -155,20 +145,21 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
                 <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h2 id="audit-modal-title" className="mt-4 text-xl font-semibold text-fg">
+            <h2 id="call-modal-title" className="mt-4 text-xl font-semibold text-fg">
               Got it.
             </h2>
             <p className="mt-2 text-sm text-fg-muted">
-              We&apos;ll analyze your AI search visibility and get back to you.
+              We&apos;ll review your market and reach out to schedule your Growth Call.
             </p>
           </div>
         ) : (
           <>
-            <h2 id="audit-modal-title" className="text-xl font-semibold text-fg">
-              Get Your Free AI Visibility Audit
+            <h2 id="call-modal-title" className="text-xl font-semibold text-fg">
+              Book Your Free Growth Call
             </h2>
             <p className="mt-1.5 text-sm text-fg-muted">
-              Tell us about your business. We&apos;ll show you where you&apos;re being missed.
+              Tell us about your cleaning company. We&apos;ll look at your market and follow up to
+              schedule a time.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -196,7 +187,7 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
                     className={inputClasses}
                   />
                 </Field>
-                <Field label="Business name" htmlFor="businessName">
+                <Field label="Company name" htmlFor="businessName">
                   <input
                     id="businessName"
                     required
@@ -212,41 +203,23 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
                   <input
                     id="website"
                     required
-                    placeholder="yourbusiness.com"
+                    placeholder="yourcompany.com"
                     value={form.website}
                     onChange={(e) => handleFieldChange("website", e.target.value)}
                     className={inputClasses}
                   />
                 </Field>
-                <Field label="City" htmlFor="city">
+                <Field label="Service area" htmlFor="serviceArea">
                   <input
-                    id="city"
+                    id="serviceArea"
                     required
-                    value={form.city}
-                    onChange={(e) => handleFieldChange("city", e.target.value)}
+                    placeholder="City or region"
+                    value={form.serviceArea}
+                    onChange={(e) => handleFieldChange("serviceArea", e.target.value)}
                     className={inputClasses}
                   />
                 </Field>
               </div>
-
-              <Field label="Industry" htmlFor="industry">
-                <select
-                  id="industry"
-                  required
-                  value={form.industry}
-                  onChange={(e) => handleFieldChange("industry", e.target.value)}
-                  className={inputClasses}
-                >
-                  <option value="" disabled>
-                    Select your industry
-                  </option>
-                  {INDUSTRIES.map((industry) => (
-                    <option key={industry} value={industry}>
-                      {industry}
-                    </option>
-                  ))}
-                </select>
-              </Field>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Email" htmlFor="email">
@@ -271,14 +244,13 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
                 </Field>
               </div>
 
-              <Field label="What services are most important to grow?" htmlFor="priorityServices">
+              <Field label="What type of accounts are you hoping to win more of? (optional)" htmlFor="idealAccounts">
                 <textarea
-                  id="priorityServices"
-                  required
+                  id="idealAccounts"
                   rows={3}
-                  placeholder="e.g. dental implants, kitchen remodels, injectables..."
-                  value={form.priorityServices}
-                  onChange={(e) => handleFieldChange("priorityServices", e.target.value)}
+                  placeholder="e.g. medical offices, office buildings, warehouses..."
+                  value={form.idealAccounts}
+                  onChange={(e) => handleFieldChange("idealAccounts", e.target.value)}
                   className={`${inputClasses} resize-none`}
                 />
               </Field>
@@ -295,11 +267,11 @@ function AuditModalDialog({ onClose }: { onClose: () => void }) {
                   disabled={status === "submitting"}
                   className="w-full rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover focus-ring disabled:opacity-60"
                 >
-                  {status === "submitting" ? "Submitting…" : "Submit"}
+                  {status === "submitting" ? "Submitting…" : "Book My Free Growth Call"}
                 </button>
                 <p className="mt-3 text-center text-xs text-fg-subtle">
-                  By submitting, you agree to be contacted about your AI Visibility Audit. We
-                  don&apos;t share your information with third parties.
+                  By submitting, you agree to be contacted about your Growth Call. We don&apos;t
+                  share your information with third parties.
                 </p>
               </div>
             </form>

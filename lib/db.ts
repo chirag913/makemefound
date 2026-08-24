@@ -19,15 +19,14 @@ export function getPool(): Pool | undefined {
   return pool;
 }
 
-export async function insertAuditRequest(data: {
+export async function insertGrowthCallRequest(data: {
   name: string;
   businessName: string;
   website: string;
-  city: string;
-  industry: string;
+  serviceArea: string;
   email: string;
   phone: string;
-  priorityServices: string;
+  idealAccounts: string;
 }) {
   const db = getPool();
   if (!db) {
@@ -36,33 +35,31 @@ export async function insertAuditRequest(data: {
     return;
   }
   await db.query(
-    `CREATE TABLE IF NOT EXISTS audit_requests (
+    `CREATE TABLE IF NOT EXISTS growth_call_requests (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
       business_name TEXT NOT NULL,
       website TEXT NOT NULL,
-      city TEXT NOT NULL,
-      industry TEXT NOT NULL,
+      service_area TEXT NOT NULL,
       email TEXT NOT NULL,
       phone TEXT NOT NULL,
-      priority_services TEXT NOT NULL,
+      ideal_accounts TEXT NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )`
   );
 
   await db.query(
-    `INSERT INTO audit_requests
-      (name, business_name, website, city, industry, email, phone, priority_services)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    `INSERT INTO growth_call_requests
+      (name, business_name, website, service_area, email, phone, ideal_accounts)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
     [
       data.name,
       data.businessName,
       data.website,
-      data.city,
-      data.industry,
+      data.serviceArea,
       data.email,
       data.phone,
-      data.priorityServices,
+      data.idealAccounts,
     ]
   );
 }

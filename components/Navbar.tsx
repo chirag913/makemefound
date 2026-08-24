@@ -3,18 +3,17 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Button from "./Button";
-import { useAuditModal } from "./AuditModalContext";
+import { useCallModal } from "./CallModalContext";
 
 const NAV_LINKS = [
+  { label: "Home", href: "#top" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Services", href: "#services" },
-  { label: "Results", href: "#results" },
-  { label: "About", href: "#about" },
+  { label: "Who We Help", href: "#who-we-help" },
   { label: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
-  const { openModal } = useAuditModal();
+  const { openModal } = useCallModal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,7 +40,7 @@ export default function Navbar() {
           <span className="flex flex-col leading-tight">
             <span className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</span>
             <span className="text-[11px] font-medium uppercase tracking-wider text-fg-subtle">
-              AI Search Visibility
+              Client Acquisition
             </span>
           </span>
         </a>
@@ -60,19 +59,11 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Button
-            as="a"
-            href="#how-it-works"
-            variant="secondary"
-            className="px-4 py-2.5 text-sm"
-          >
-            See How It Works
-          </Button>
-          <Button
             variant="primary"
             className="px-4 py-2.5 text-sm"
             onClick={() => openModal("navbar")}
           >
-            Get Your Free AI Visibility Audit
+            Book a Free Growth Call
           </Button>
         </div>
 
@@ -108,15 +99,7 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <div className="mt-3 flex flex-col gap-2">
-              <Button
-                as="a"
-                href="#how-it-works"
-                variant="secondary"
-                onClick={() => setMobileOpen(false)}
-              >
-                See How It Works
-              </Button>
+            <div className="mt-3">
               <Button
                 variant="primary"
                 onClick={() => {
@@ -124,7 +107,7 @@ export default function Navbar() {
                   openModal("navbar_mobile");
                 }}
               >
-                Get Your Free AI Visibility Audit
+                Book a Free Growth Call
               </Button>
             </div>
           </div>

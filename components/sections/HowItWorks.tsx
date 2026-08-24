@@ -4,30 +4,31 @@ import SectionLabel from "../SectionLabel";
 const STEPS = [
   {
     number: "01",
-    title: "Discover",
-    description: "We test hundreds of high-intent searches your customers could ask AI.",
+    title: "Find",
+    description: "Identify businesses in your service area that are likely to need commercial cleaning.",
   },
   {
     number: "02",
-    title: "Diagnose",
-    description:
-      "We identify why competitors are appearing while your business is being overlooked.",
+    title: "Qualify",
+    description: "Filter prospects based on location, business type, size, service requirements, and fit.",
   },
   {
     number: "03",
-    title: "Build",
-    description:
-      "We improve your website, entity presence, content, local authority, and relevant third-party mentions.",
+    title: "Reach",
+    description: "Contact decision-makers using targeted outbound campaigns.",
   },
   {
     number: "04",
-    title: "Measure",
+    title: "Follow Up",
+    description: "Use structured follow-up to turn initial outreach into real conversations.",
+  },
+  {
+    number: "05",
+    title: "Book Opportunities",
     description:
-      "We continuously track your visibility across AI search and show what's changing.",
+      "When prospects show interest, move the opportunity to your sales team for a call, estimate, or site visit.",
   },
 ];
-
-const TIMELINE = ["Baseline", "Optimization", "Authority", "Visibility", "Growth"];
 
 export default function HowItWorks() {
   return (
@@ -36,13 +37,13 @@ export default function HowItWorks() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionLabel>How It Works</SectionLabel>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
-            From invisible to recommended.
+            We Build Your Outbound Client Acquisition System
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {STEPS.map((step, i) => (
-            <Reveal key={step.number} delay={i * 80}>
+            <Reveal key={step.number} delay={i * 70}>
               <div className="h-full rounded-2xl border border-border bg-bg-card/40 p-6">
                 <span className="text-sm font-semibold text-accent">{step.number}</span>
                 <h3 className="mt-3 text-lg font-semibold text-fg">{step.title}</h3>
@@ -52,20 +53,20 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        <Reveal delay={320}>
+        <Reveal delay={350}>
           <div className="mt-16 overflow-x-auto">
             <div className="flex min-w-[560px] items-center justify-between gap-2 sm:min-w-0">
-              {TIMELINE.map((stage, i) => (
-                <div key={stage} className="flex flex-1 items-center">
+              {STEPS.map((step, i) => (
+                <div key={step.number} className="flex flex-1 items-center">
                   <div className="flex flex-1 flex-col items-center gap-2">
                     <div
                       className={`h-2.5 w-2.5 rounded-full ${
-                        i === TIMELINE.length - 1 ? "bg-accent" : "bg-fg-subtle"
+                        i === STEPS.length - 1 ? "bg-accent" : "bg-fg-subtle"
                       }`}
                     />
-                    <span className="text-xs text-fg-muted">{stage}</span>
+                    <span className="text-xs text-fg-muted">{step.title}</span>
                   </div>
-                  {i < TIMELINE.length - 1 && (
+                  {i < STEPS.length - 1 && (
                     <div className="mx-1 h-px flex-1 bg-border-strong sm:mx-2" />
                   )}
                 </div>

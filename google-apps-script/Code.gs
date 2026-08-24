@@ -1,5 +1,5 @@
 /**
- * MakeMeFound — Audit request intake for Google Sheets.
+ * MakeMeFound — Growth Call request intake for Google Sheets.
  *
  * SETUP (one time):
  * 1. Create a new Google Sheet (sheets.new).
@@ -22,13 +22,12 @@ const NOTIFICATION_EMAIL = "hello@makemefound.com";
 const HEADERS = [
   "Timestamp",
   "Name",
-  "Business Name",
+  "Company Name",
   "Website",
-  "City",
-  "Industry",
+  "Service Area",
   "Email",
   "Phone",
-  "Priority Services",
+  "Ideal Accounts",
 ];
 
 function doPost(e) {
@@ -42,11 +41,10 @@ function doPost(e) {
     data.name || "",
     data.businessName || "",
     data.website || "",
-    data.city || "",
-    data.industry || "",
+    data.serviceArea || "",
     data.email || "",
     data.phone || "",
-    data.priorityServices || "",
+    data.idealAccounts || "",
   ]);
 
   sendNotificationEmail(data);
@@ -58,7 +56,7 @@ function doPost(e) {
 
 function doGet() {
   return ContentService.createTextOutput(
-    JSON.stringify({ ok: true, message: "MakeMeFound audit intake is live." })
+    JSON.stringify({ ok: true, message: "MakeMeFound growth call intake is live." })
   ).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -71,16 +69,15 @@ function ensureHeaders(sheet) {
 }
 
 function sendNotificationEmail(data) {
-  const subject = `New AI Visibility Audit request — ${data.businessName || "Unknown business"}`;
+  const subject = "New Growth Call request - " + (data.businessName || "Unknown business");
   const body = [
-    `Name: ${data.name || ""}`,
-    `Business: ${data.businessName || ""}`,
-    `Website: ${data.website || ""}`,
-    `City: ${data.city || ""}`,
-    `Industry: ${data.industry || ""}`,
-    `Email: ${data.email || ""}`,
-    `Phone: ${data.phone || ""}`,
-    `Priority services: ${data.priorityServices || ""}`,
+    "Name: " + (data.name || ""),
+    "Company: " + (data.businessName || ""),
+    "Website: " + (data.website || ""),
+    "Service area: " + (data.serviceArea || ""),
+    "Email: " + (data.email || ""),
+    "Phone: " + (data.phone || ""),
+    "Ideal accounts: " + (data.idealAccounts || "")
   ].join("\n");
 
   MailApp.sendEmail({

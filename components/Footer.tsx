@@ -3,9 +3,8 @@ import Link from "next/link";
 
 const FOOTER_LINKS = [
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Services", href: "#services" },
-  { label: "Results", href: "#results" },
-  { label: "About", href: "#about" },
+  { label: "Who We Help", href: "#who-we-help" },
+  { label: "FAQ", href: "#faq" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -24,7 +23,7 @@ export default function Footer() {
             <Image src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
             <p className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</p>
           </div>
-          <p className="mt-1 text-sm text-fg-muted">AI Search Visibility for Local Businesses</p>
+          <p className="mt-1 text-sm text-fg-muted">Client Acquisition for Commercial Cleaning Companies</p>
           <p className="mt-4 text-sm text-fg-subtle">
             <a href="mailto:hello@makemefound.com" className="hover:text-fg-muted focus-ring rounded-md">
               hello@makemefound.com

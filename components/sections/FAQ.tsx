@@ -4,32 +4,28 @@ import SectionLabel from "../SectionLabel";
 
 const FAQ_ITEMS = [
   {
-    question: "What is AI Search Visibility?",
+    question: "Do you work exclusively with commercial cleaning companies?",
     answer:
-      "It's how easily AI systems like ChatGPT, Gemini, and Perplexity can find, understand, and recommend your business when someone asks a relevant question. It covers whether you're mentioned, how you're described, and whether you're cited as a source.",
+      "Yes, for now. MakeMeFound is initially specializing in commercial cleaning companies and building a specialized client-acquisition system for this market rather than spreading across many industries.",
   },
   {
-    question: "Is this the same as SEO?",
+    question: "Do you guarantee clients?",
     answer:
-      "AI search visibility builds on SEO, local search, content, entity authority, and digital PR — it doesn't replace traditional SEO. Think of it as the next layer: the same foundations, applied to how AI systems retrieve and recommend businesses.",
+      "No — and we're wary of anyone who does. Our goal is to generate qualified sales opportunities. You control pricing, sales conversations, proposals, and closing.",
   },
   {
-    question: "Can you guarantee that ChatGPT will recommend my business?",
+    question: "Do you provide the leads or actually contact them?",
     answer:
-      "No. AI results are dynamic and no legitimate provider can guarantee a specific ranking or recommendation. We measure and improve visibility instead — tracking mentions, citations, and recommendation rate over time.",
+      "We handle the full process: prospect research, decision-maker identification, outreach, and follow-up. You get qualified opportunities ready for a call, estimate, or site visit.",
   },
   {
-    question: "Which AI platforms do you optimize for?",
-    answer: "ChatGPT, Gemini, Perplexity, Google AI, and other relevant AI search experiences.",
-  },
-  {
-    question: "How long does it take?",
+    question: "What types of businesses can you target?",
     answer:
-      "It varies by market, competition, existing authority, and implementation. The first step is always establishing a baseline — from there we set realistic expectations for your specific situation.",
+      "Medical offices, office buildings, warehouses, restaurants, property management companies, gyms, retail locations, industrial facilities, and other commercial properties — depending on your ideal customer profile.",
   },
   {
-    question: "Do you work with businesses outside the US?",
-    answer: "Yes, but our messaging is initially focused on US local businesses.",
+    question: "What areas do you cover?",
+    answer: "Campaigns are built around your service area — wherever you're licensed and able to take on new accounts.",
   },
 ];
 

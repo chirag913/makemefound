@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auditRequestSchema } from "@/lib/validation";
-import { insertAuditRequest } from "@/lib/db";
-import { sendAuditNotification } from "@/lib/email";
+import { growthCallRequestSchema } from "@/lib/validation";
+import { insertGrowthCallRequest } from "@/lib/db";
+import { sendGrowthCallNotification } from "@/lib/email";
 import { sendToGoogleSheet } from "@/lib/googleSheet";
 
 export async function POST(request: NextRequest) {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const parsed = auditRequestSchema.safeParse(body);
+  const parsed = growthCallRequestSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Please check the form and try again.", issues: parsed.error.issues },
@@ -29,31 +29,30 @@ export async function POST(request: NextRequest) {
     name: parsed.data.name,
     businessName: parsed.data.businessName,
     website: parsed.data.website,
-    city: parsed.data.city,
-    industry: parsed.data.industry,
+    serviceArea: parsed.data.serviceArea,
     email: parsed.data.email,
     phone: parsed.data.phone,
-    priorityServices: parsed.data.priorityServices,
+    idealAccounts: parsed.data.idealAccounts || "",
   };
 
   // Each destination is independent and best-effort — a visitor's submission should
   // succeed as long as at least one of these is configured, and a failure in one
   // (e.g. bad DB credentials) shouldn't block the others or the user-facing response.
   const results = await Promise.allSettled([
-    insertAuditRequest(data),
+    insertGrowthCallRequest(data),
     sendToGoogleSheet(data),
-    sendAuditNotification(data),
+    sendGrowthCallNotification(data),
   ]);
 
   const [dbResult, sheetResult, emailResult] = results;
   if (dbResult.status === "rejected") {
-    console.error("Failed to store audit request in Postgres:", dbResult.reason);
+    console.error("Failed to store growth call request in Postgres:", dbResult.reason);
   }
   if (sheetResult.status === "rejected") {
-    console.error("Failed to send audit request to Google Sheet:", sheetResult.reason);
+    console.error("Failed to send growth call request to Google Sheet:", sheetResult.reason);
   }
   if (emailResult.status === "rejected") {
-    console.error("Failed to send audit notification email:", emailResult.reason);
+    console.error("Failed to send growth call notification email:", emailResult.reason);
   }
 
   return NextResponse.json({ ok: true });

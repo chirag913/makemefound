@@ -23,20 +23,20 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-fg">1. Overview</h2>
               <p className="mt-3">
                 MakeMeFound (&ldquo;MakeMeFound,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
-                &ldquo;our&rdquo;) provides AI search visibility services to local businesses in
-                the United States. This Privacy Policy explains what information we collect
-                through makemefound.com (the &ldquo;Site&rdquo;), how we use it, and the choices
-                you have.
+                &ldquo;our&rdquo;) provides client-acquisition and outbound growth services to
+                commercial cleaning companies in the United States. This Privacy Policy explains
+                what information we collect through makemefound.com (the &ldquo;Site&rdquo;), how
+                we use it, and the choices you have.
               </p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-fg">2. Information We Collect</h2>
-              <p className="mt-3">When you submit the AI Visibility Audit form, we collect:</p>
+              <p className="mt-3">When you submit the Growth Call form, we collect:</p>
               <ul className="mt-3 list-disc space-y-1.5 pl-5">
                 <li>Your name and contact details (email, phone)</li>
-                <li>Your business name, website, city, and industry</li>
-                <li>Any additional information you choose to share about your goals</li>
+                <li>Your company name, website, and service area</li>
+                <li>Any additional information you choose to share about your ideal accounts</li>
               </ul>
               <p className="mt-3">
                 We also collect standard analytics data automatically through Google Analytics 4,
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">3. How We Use Your Information</h2>
               <ul className="mt-3 list-disc space-y-1.5 pl-5">
-                <li>To respond to your audit request and provide the services you asked for</li>
+                <li>To respond to your Growth Call request and provide the services you asked for</li>
                 <li>To communicate with you about your account or engagement with us</li>
                 <li>To improve our website, services, and marketing</li>
                 <li>To comply with legal obligations</li>
@@ -59,7 +59,8 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-fg">4. How We Share Your Information</h2>
               <p className="mt-3">
                 We do not sell your personal information. We do not share the information you
-                submit through the audit form with third parties for their own marketing purposes.
+                submit through the Growth Call form with third parties for their own marketing
+                purposes.
                 We may share information with service providers who help us operate the Site and
                 deliver our services (for example, hosting, database, and email-delivery
                 providers), under obligations to protect it.

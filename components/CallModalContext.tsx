@@ -3,15 +3,15 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { trackCtaClick } from "@/lib/analytics";
 
-type AuditModalContextValue = {
+type CallModalContextValue = {
   isOpen: boolean;
   openModal: (location: string) => void;
   closeModal: () => void;
 };
 
-const AuditModalContext = createContext<AuditModalContextValue | null>(null);
+const CallModalContext = createContext<CallModalContextValue | null>(null);
 
-export function AuditModalProvider({ children }: { children: React.ReactNode }) {
+export function CallModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = useCallback((location: string) => {
@@ -23,13 +23,13 @@ export function AuditModalProvider({ children }: { children: React.ReactNode }) 
 
   const value = useMemo(() => ({ isOpen, openModal, closeModal }), [isOpen, openModal, closeModal]);
 
-  return <AuditModalContext.Provider value={value}>{children}</AuditModalContext.Provider>;
+  return <CallModalContext.Provider value={value}>{children}</CallModalContext.Provider>;
 }
 
-export function useAuditModal() {
-  const ctx = useContext(AuditModalContext);
+export function useCallModal() {
+  const ctx = useContext(CallModalContext);
   if (!ctx) {
-    throw new Error("useAuditModal must be used within AuditModalProvider");
+    throw new Error("useCallModal must be used within CallModalProvider");
   }
   return ctx;
 }
