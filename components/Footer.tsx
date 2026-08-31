@@ -71,7 +71,10 @@ export default function Footer() {
 
       <div className="mx-auto mt-10 max-w-7xl border-t border-border pt-6">
         <p className="text-xs text-fg-subtle">
-          © {new Date().getFullYear()} MakeMeFound. All rights reserved.
+          MakeMeFound is a brand operated by CHIRAG DIGITAL PRIVATE LIMITED.
+        </p>
+        <p className="mt-1.5 text-xs text-fg-subtle">
+          © 2026 CHIRAG DIGITAL PRIVATE LIMITED. All rights reserved.
         </p>
       </div>
     </footer>

@@ -20,6 +20,19 @@ export default function PrivacyPage() {
 
           <div className="mt-10 space-y-10 text-sm leading-relaxed text-fg-muted">
             <section>
+              <h2 className="text-lg font-semibold text-fg">Who We Are</h2>
+              <p className="mt-3">
+                MakeMeFound (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is a brand
+                operated by CHIRAG DIGITAL PRIVATE LIMITED. CHIRAG DIGITAL PRIVATE LIMITED operates
+                and manages the MakeMeFound website and the services available through{" "}
+                <a href="https://www.makemefound.com" className="text-accent hover:text-accent-hover">
+                  www.makemefound.com
+                </a>
+                .
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-lg font-semibold text-fg">1. Overview</h2>
               <p className="mt-3">
                 MakeMeFound (&ldquo;MakeMeFound,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or

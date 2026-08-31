@@ -20,6 +20,28 @@ export default function TermsPage() {
 
           <div className="mt-10 space-y-10 text-sm leading-relaxed text-fg-muted">
             <section>
+              <h2 className="text-lg font-semibold text-fg">About MakeMeFound</h2>
+              <p className="mt-3">
+                MakeMeFound is a brand and business operated by CHIRAG DIGITAL PRIVATE LIMITED, a
+                company incorporated under the Companies Act, 2013 in India.
+              </p>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5">
+                <li>Legal Entity: CHIRAG DIGITAL PRIVATE LIMITED</li>
+                <li>Brand: MakeMeFound</li>
+                <li>
+                  Website:{" "}
+                  <a href="https://www.makemefound.com" className="text-accent hover:text-accent-hover">
+                    www.makemefound.com
+                  </a>
+                </li>
+              </ul>
+              <p className="mt-3">
+                All services provided through MakeMeFound are offered and operated by CHIRAG
+                DIGITAL PRIVATE LIMITED.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-lg font-semibold text-fg">1. Agreement to Terms</h2>
               <p className="mt-3">
                 By accessing or using makemefound.com (the &ldquo;Site&rdquo;) or submitting a
@@ -86,8 +108,8 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">8. Governing Law</h2>
               <p className="mt-3">
-                These Terms are governed by the laws of the United States and the state in which
-                MakeMeFound is organized, without regard to conflict-of-law principles.
+                These Terms are governed by the laws of India, without regard to conflict-of-law
+                principles.
               </p>
             </section>
 
