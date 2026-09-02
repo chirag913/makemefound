@@ -27,11 +27,11 @@ export default function Hero() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-12">
         <Reveal>
           <h1 className="text-balance text-4xl font-semibold tracking-tight text-fg sm:text-5xl lg:text-[3.4rem] lg:leading-[1.08]">
-            Get More Commercial Cleaning Contracts
+            Turn Your Team&apos;s Spare Capacity Into New Accounts
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
-            We help commercial cleaning companies find the right businesses, reach decision-makers,
-            and turn cold prospects into qualified sales opportunities.
+            We help B2B service companies find the right businesses, reach decision-makers, and
+            turn cold prospects into qualified sales opportunities.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

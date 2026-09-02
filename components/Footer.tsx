@@ -23,7 +23,7 @@ export default function Footer() {
             <Image src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
             <p className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</p>
           </div>
-          <p className="mt-1 text-sm text-fg-muted">Client Acquisition for Commercial Cleaning Companies</p>
+          <p className="mt-1 text-sm text-fg-muted">Done-For-You Outbound Client Acquisition</p>
           <p className="mt-4 text-sm text-fg-subtle">
             <a href="mailto:hello@makemefound.com" className="hover:text-fg-muted focus-ring rounded-md">
               hello@makemefound.com

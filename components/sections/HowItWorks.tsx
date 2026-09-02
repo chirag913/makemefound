@@ -5,7 +5,7 @@ const STEPS = [
   {
     number: "01",
     title: "Find",
-    description: "Identify businesses in your service area that are likely to need commercial cleaning.",
+    description: "Identify businesses in your service area that are likely to need your services.",
   },
   {
     number: "02",

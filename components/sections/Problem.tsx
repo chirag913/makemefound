@@ -15,10 +15,10 @@ export default function Problem() {
       <div className="mx-auto max-w-4xl">
         <Reveal>
           <h2 className="text-balance text-center text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
-            Great Cleaning Companies Shouldn&apos;t Have to Rely on Referrals Alone
+            Great Service Businesses Shouldn&apos;t Have to Rely on Referrals Alone
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-fg-muted">
-            Most commercial cleaning companies struggle to grow for the same reasons.
+            Most B2B service businesses struggle to grow for the same reasons.
           </p>
         </Reveal>
 

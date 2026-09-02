@@ -25,7 +25,7 @@ export default function DemoCampaign() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-fg-subtle">
-                  Sample Commercial Cleaning Campaign
+                  Sample Outbound Campaign
                 </p>
                 <p className="mt-1 text-sm text-fg-muted">
                   Target Market: Medical Offices · Location: Dallas, Texas

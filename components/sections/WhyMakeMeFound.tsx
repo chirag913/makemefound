@@ -28,7 +28,7 @@ export default function WhyMakeMeFound() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionLabel>Why MakeMeFound</SectionLabel>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
-            You Focus on Cleaning. We Focus on Finding the Next Contract.
+            You Focus on the Work. We Focus on Finding the Next Contract.
           </h2>
         </Reveal>
 

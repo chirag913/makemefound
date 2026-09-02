@@ -4,9 +4,9 @@ import SectionLabel from "../SectionLabel";
 
 const FAQ_ITEMS = [
   {
-    question: "Do you work exclusively with commercial cleaning companies?",
+    question: "Do you specialize in one industry?",
     answer:
-      "Yes, for now. MakeMeFound is initially specializing in commercial cleaning companies and building a specialized client-acquisition system for this market rather than spreading across many industries.",
+      "We work with B2B service businesses that sell recurring or project-based work to other businesses. We're deliberately testing and refining our outbound system across a small number of verticals at a time rather than spreading thin — if you're not sure we're a fit for yours, book a call and we'll tell you honestly.",
   },
   {
     question: "Do you guarantee clients?",

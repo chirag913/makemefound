@@ -158,7 +158,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
               Book Your Free Growth Call
             </h2>
             <p className="mt-1.5 text-sm text-fg-muted">
-              Tell us about your cleaning company. We&apos;ll look at your market and follow up to
+              Tell us about your business. We&apos;ll look at your market and follow up to
               schedule a time.
             </p>
 
