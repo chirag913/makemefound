@@ -1,38 +1,81 @@
-import { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, AnchorHTMLAttributes, ReactNode } from "react";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium transition-colors duration-200 focus-ring whitespace-nowrap";
+  "group inline-flex items-center justify-center gap-2.5 rounded-full text-[0.9375rem] font-medium tracking-[-0.01em] whitespace-nowrap focus-ring transition-[background-color,border-color,color,transform] duration-200 ease-out active:scale-[0.98]";
 
 const variants = {
-  primary: "bg-accent text-white hover:bg-accent-hover",
-  secondary:
-    "bg-white/[0.04] text-fg border border-border-strong hover:bg-white/[0.08] hover:border-white/20",
+  // Paper on ink. The signal color is reserved for leaks, not buttons.
+  primary: "bg-fg text-bg hover:bg-white",
+  secondary: "border border-line-strong text-fg hover:border-line-hover hover:bg-white/[0.03]",
+  ghost: "text-fg-muted hover:text-fg",
+};
+
+const sizes = {
+  md: "h-12 px-6",
+  sm: "h-10 px-4 text-sm",
 };
 
 type ButtonVariant = keyof typeof variants;
+type ButtonSize = keyof typeof sizes;
 
-type ButtonAsButton = ButtonHTMLAttributes<HTMLButtonElement> & {
+type Common = {
   variant?: ButtonVariant;
-  as?: "button";
+  size?: ButtonSize;
+  arrow?: boolean;
+  children?: ReactNode;
 };
 
-type ButtonAsAnchor = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  variant?: ButtonVariant;
-  as: "a";
-};
+type ButtonAsButton = ButtonHTMLAttributes<HTMLButtonElement> & Common & { as?: "button" };
+type ButtonAsAnchor = AnchorHTMLAttributes<HTMLAnchorElement> & Common & { as: "a" };
 
 type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
-export default function Button({ variant = "primary", className = "", ...props }: ButtonProps) {
-  const classes = `${base} ${variants[variant]} ${className}`;
+export function Arrow({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={`arrow-nudge ${className}`}
+    >
+      <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export default function Button({
+  variant = "primary",
+  size = "md",
+  arrow = false,
+  className = "",
+  children,
+  ...props
+}: ButtonProps) {
+  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+  const content = (
+    <>
+      {children}
+      {arrow && <Arrow />}
+    </>
+  );
 
   if (props.as === "a") {
     const { as, ...anchorProps } = props;
     void as;
-    return <a className={classes} {...anchorProps} />;
+    return (
+      <a className={classes} {...anchorProps}>
+        {content}
+      </a>
+    );
   }
 
   const { as, ...buttonProps } = props as ButtonAsButton;
   void as;
-  return <button className={classes} {...buttonProps} />;
+  return (
+    <button type="button" className={classes} {...buttonProps}>
+      {content}
+    </button>
+  );
 }

@@ -36,8 +36,8 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-fg">1. Overview</h2>
               <p className="mt-3">
                 MakeMeFound (&ldquo;MakeMeFound,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
-                &ldquo;our&rdquo;) provides client-acquisition and outbound growth services to
-                B2B service companies in the United States. This Privacy Policy explains
+                &ldquo;our&rdquo;) provides customer-acquisition diagnostics, conversion,
+                referral-channel and automation services to businesses in the United States. This Privacy Policy explains
                 what information we collect through makemefound.com (the &ldquo;Site&rdquo;), how
                 we use it, and the choices you have.
               </p>

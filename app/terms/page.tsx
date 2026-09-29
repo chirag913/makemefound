@@ -53,9 +53,10 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">2. Description of Services</h2>
               <p className="mt-3">
-                MakeMeFound provides client-acquisition and outbound growth services to B2B
-                service companies, including prospect research, decision-maker identification,
-                outbound outreach campaigns, and follow-up. Details of any specific engagement are
+                MakeMeFound provides customer-acquisition services to businesses, including
+                diagnosis of conversion paths, landing page and form fixes, referral-partner
+                research and outreach, follow-up, CRM and revenue automation, and related
+                integrations. Details of any specific engagement are
                 governed by a separate agreement between MakeMeFound and the client.
               </p>
             </section>

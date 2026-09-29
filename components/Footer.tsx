@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
+import Logo from "./Logo";
+import { NAV_LINKS } from "@/lib/nav";
+import { CONTACT_EMAIL, SITE_TAGLINE } from "@/lib/site";
 
-const FOOTER_LINKS = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Who We Help", href: "#who-we-help" },
-  { label: "FAQ", href: "#faq" },
+const LEGAL_LINKS = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -16,66 +15,66 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border px-6 py-14 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <Image src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
-            <p className="text-lg font-semibold tracking-tight text-fg">MakeMeFound</p>
-          </div>
-          <p className="mt-1 text-sm text-fg-muted">Done-For-You Outbound Client Acquisition</p>
-          <p className="mt-4 text-sm text-fg-subtle">
-            <a href="mailto:hello@makemefound.com" className="hover:text-fg-muted focus-ring rounded-md">
-              hello@makemefound.com
-            </a>
-          </p>
+    <footer className="border-t border-line">
+      <div className="container-x grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12 lg:py-20">
+        <div className="lg:col-span-5">
+          <Link href="/" className="inline-block focus-ring rounded-md" aria-label="MakeMeFound home">
+            <Logo />
+          </Link>
+          <p className="mt-5 max-w-xs text-sm leading-relaxed text-fg-muted">{SITE_TAGLINE} Conversion paths, referral channels and revenue automation.</p>
+          <a href={`mailto:${CONTACT_EMAIL}`} className="link-underline mt-6 inline-block text-sm text-fg focus-ring rounded-sm">
+            {CONTACT_EMAIL}
+          </a>
         </div>
 
-        <nav className="flex flex-wrap gap-x-8 gap-y-3">
-          {FOOTER_LINKS.map((link) =>
-            link.href.startsWith("/") ? (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-sm text-fg-muted hover:text-fg focus-ring rounded-md"
-              >
-                {link.label}
+        <nav aria-label="Footer" className="lg:col-span-2 lg:col-start-7">
+          <p className="t-mono text-fg-faint">Site</p>
+          <ul className="mt-4 space-y-3">
+            {NAV_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-sm text-fg-muted transition-colors hover:text-fg focus-ring rounded-sm">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/#faq" className="text-sm text-fg-muted transition-colors hover:text-fg focus-ring rounded-sm">
+                FAQ
               </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-fg-muted hover:text-fg focus-ring rounded-md"
-              >
-                {link.label}
-              </a>
-            )
-          )}
+            </li>
+          </ul>
         </nav>
 
-        <div className="flex gap-4">
-          {SOCIAL_LINKS.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-fg-subtle hover:text-fg-muted focus-ring rounded-md"
-              aria-label={social.label}
-            >
-              {social.label}
-            </a>
-          ))}
+        <div className="lg:col-span-2">
+          <p className="t-mono text-fg-faint">Legal</p>
+          <ul className="mt-4 space-y-3">
+            {LEGAL_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-sm text-fg-muted transition-colors hover:text-fg focus-ring rounded-sm">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="lg:col-span-2">
+          <p className="t-mono text-fg-faint">Follow</p>
+          <ul className="mt-4 space-y-3">
+            {SOCIAL_LINKS.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-sm text-fg-muted transition-colors hover:text-fg focus-ring rounded-sm">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl border-t border-border pt-6">
-        <p className="text-xs text-fg-subtle">
-          MakeMeFound is a brand operated by CHIRAG DIGITAL PRIVATE LIMITED.
-        </p>
-        <p className="mt-1.5 text-xs text-fg-subtle">
-          © 2026 CHIRAG DIGITAL PRIVATE LIMITED. All rights reserved.
-        </p>
+      <div className="container-x flex flex-col gap-2 border-t border-line py-6 sm:flex-row sm:justify-between">
+        <p className="text-xs text-fg-subtle">MakeMeFound is a brand operated by CHIRAG DIGITAL PRIVATE LIMITED.</p>
+        <p className="text-xs text-fg-subtle">© 2026 CHIRAG DIGITAL PRIVATE LIMITED. All rights reserved.</p>
       </div>
     </footer>
   );

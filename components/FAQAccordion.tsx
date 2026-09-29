@@ -11,13 +11,13 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-border rounded-2xl border border-border bg-bg-card/40">
+    <div className="border-t border-line-strong">
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         const panelId = `faq-panel-${index}`;
         const buttonId = `faq-button-${index}`;
         return (
-          <div key={item.question}>
+          <div key={item.question} className="border-b border-line">
             <h3>
               <button
                 id={buttonId}
@@ -25,34 +25,39 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left focus-ring"
+                className="group flex w-full items-center gap-6 py-6 text-left focus-ring"
               >
-                <span className="text-sm font-medium text-fg sm:text-base">{item.question}</span>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  className={`shrink-0 text-fg-subtle transition-transform duration-200 ${
-                    isOpen ? "rotate-45" : ""
+                <span className="t-mono w-6 flex-none tabular-nums text-fg-faint">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`flex-1 text-base tracking-[-0.015em] transition-colors sm:text-lg ${
+                    isOpen ? "text-fg" : "text-fg-muted group-hover:text-fg"
                   }`}
                 >
-                  <path d="M12 5v14M5 12h14" strokeLinecap="round" />
-                </svg>
+                  {item.question}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`relative h-3 w-3 flex-none text-fg-subtle transition-transform duration-300 ${
+                    isOpen ? "rotate-45 text-fg" : ""
+                  }`}
+                >
+                  <span className="absolute left-0 top-1/2 h-px w-3 -translate-y-1/2 bg-current" />
+                  <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-current" />
+                </span>
               </button>
             </h3>
             <div
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              className={`grid overflow-hidden transition-all duration-300 ease-out ${
+              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               }`}
             >
-              <div className="min-h-0">
-                <p className="px-6 pb-5 text-sm leading-relaxed text-fg-muted">{item.answer}</p>
+              <div className="min-h-0 overflow-hidden">
+                <p className="t-body max-w-[60ch] pb-7 pl-12 text-fg-muted">{item.answer}</p>
               </div>
             </div>
           </div>
