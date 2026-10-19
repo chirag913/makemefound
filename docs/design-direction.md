@@ -2,90 +2,76 @@
 
 ## Positioning
 
-**We find where your growth is stuck — then fix it.**
-Problem → Diagnosis → Fix → Automation. Technology is the delivery mechanism; the
-customer buys the outcome. AI is a tool on the bench, never the headline.
+**YouTube content production & growth studio for business creators.**
+"We help business creators turn their expertise into compelling YouTube content through
+thoughtful editing, content packaging, and short-form repurposing."
 
-- Hero: "Your growth is stuck somewhere *specific*. We find it. Then we fix it."
-- Primary CTA: **Find My Bottleneck** (opens the diagnosis request form)
-- Secondary CTA: **See how we work** (scrolls to the process)
+- Hero: "You bring the expertise. We make the content *work harder.*"
+- Primary CTA: **Book a Call** (final section: **Book an Intro Call**)
+- Secondary CTA: **See Our Work**
 
-## Visual language — "diagnostic instrument"
+We are early-stage. The site never claims client counts, view numbers, results or
+testimonials. Every media slot without real footage is labelled "Sample" or "Placeholder".
 
-The site should feel like the output of someone who actually tested your business:
-reports, logs, journey maps, findings with evidence. Editorial type carries the
-argument; interface fragments carry the proof.
+## Visual language — "edit suite"
 
-Avoid: stock photos, robots, purple/blue AI gradients, glassmorphism, icon grids,
-generic dashboards, invented results.
+Deep charcoal, white type, one violet accent. Media is presented the way an editor sees
+it: program monitors, timecode, rule-of-thirds guides, burned-in captions, NLE timelines,
+vertical cuts. Editorial headlines carry the argument; the media carries the craft.
 
-## Tokens (see `app/globals.css`)
+Avoid: stock photos, emoji, glassmorphism, floating blobs, random gradients, fake metrics.
+
+## Tokens (`app/globals.css`)
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `bg` | `#0a0a09` | Page (warm ink) |
-| `bg-raised` | `#0f0f0e` | Alternating sections |
-| `surface` / `surface-2` | `#141413` / `#1a1a18` | Cards, artifacts |
-| `fg` | `#edebe6` | Primary text (paper) |
-| `fg-muted` / `fg-subtle` / `fg-faint` | `#a3a19a` / `#6f6d67` / `#4a4944` | Hierarchy |
-| `line` / `line-strong` / `line-hover` | 8% / 14% / 24% paper | Hairlines |
-| `signal` | `#ff5a1f` | **Only** means leak / attention |
-| `ok` | `#62d49b` | **Only** means fixed / resolved inside artifacts |
+| `bg` / `bg-raised` | `#09090b` / `#0e0e11` | Page, alternating sections |
+| `surface` / `surface-2` | `#131317` / `#1a1a1f` | Panels, frames |
+| `fg` / `fg-muted` / `fg-subtle` / `fg-faint` | `#f4f3f7` … `#45434d` | Text hierarchy |
+| `line` / `line-strong` / `line-hover` | 8 / 14 / 24% white | Hairlines |
+| `accent` / `accent-strong` | `#8b7bff` / `#a597ff` | Emphasis, active, focus |
+| `rec` | `#ff4d4d` | REC dot and form errors only |
 
-Primary buttons are paper-on-ink, not colored — the signal color is reserved.
+Primary buttons are white on charcoal; violet is never a large fill.
 
 ## Typography
 
-- **Geist** — display and body. Display is weight 500 with tight tracking (−0.048em).
-- **Geist Mono** — labels, indices, annotations, artifact data (11–12px, uppercase labels).
-- **Instrument Serif italic** — one emphasis word per headline (`.t-em`), never a sentence.
+- **Geist** 600 for display (−0.05em tracking), body in Geist.
+- **Instrument Serif italic** for one emphasis phrase per headline (`.t-em`), usually violet.
+- **Geist Mono** for labels (`.t-label`) and timecode/data (`.t-code`).
 
-Scale: `.t-display` (clamp 2.6→6rem), `.t-h2` (2.1→4rem), `.t-h3` (1.35→1.75rem),
-`.t-lead` (1.075→1.25rem), `.t-body` (0.975rem), `.t-mono`, `.t-mono-sm`.
+## Components
 
-## Spacing & grid
+- `.panel` — surface card with hairline border and a cursor-following violet spotlight.
+- `.frame` + `MediaFrame` — monitor frame with grain, optional REC, timecode, thirds guides.
+- `Timeline` — NLE-style tracks (titles, B-roll, A-roll, voice, music) with markers and playhead.
+- `WorkPlayer` — sample slot, or click-to-load YouTube (`youtube-nocookie`), or self-hosted video
+  with `preload="none"` and no autoplay with sound.
+- `BeforeAfter` — accessible range-input comparison of raw vs edited.
+- `Filmstrip` / `KineticBand` — slow infinite marquees; pause on hover.
 
-- Container 1240px + fluid gutter (20→40px). 12-column grid at `lg`.
-- Section rhythm: `--section-y` = clamp(96px, 12vw, 176px).
-- Every section opens with `SectionRule`: hairline + mono index + label (+ aside).
-- Alternate `bg` / `bg-raised` to create rhythm without heavy dividers.
-
-## Borders, radius, shadows
-
-- 1px hairlines everywhere; hairline grids (`gap-px` on `bg-line`) for tiled content.
-- Radius: 6 / 10 / 16 / 22px. Pills for chips and buttons.
-- Shadows only on floating artifacts (`.artifact`) and the modal.
-
-## Cards & artifacts
-
-- `.card` — surface, hairline border, inset top highlight. Hover: border strengthens, 2px lift.
-- `.artifact` — window-like fragment with an `.artifact-bar` (mono title + "Sample"/"Example" label).
-  Every artifact is labeled illustrative. No invented client results.
+Component classes live in `@layer components` so Tailwind utilities can override them.
 
 ## Motion
 
-- Reveal on enter (opacity + 14px, 700ms, ease-out-expo), once.
-- Hero journey scan: steps pass, booking leaks, fix ships, loop — only while on screen.
-- Process: scroll-linked progress rail and active step.
-- Hover: underline wipes, arrow nudge, border strengthen.
-- `prefers-reduced-motion`: everything static; hero shows the finding.
+Word-by-word headline rise, live 25fps timecode (only while visible), playhead sweep,
+filmstrip and type marquees, reveal-on-scroll, spotlight on hover. All disabled under
+`prefers-reduced-motion`.
 
 ## Section order
 
-1. Nav — Work / How It Works / Solutions / About + CTA
-2. Hero — statement, subcopy, CTAs, live journey audit
-3. 01 The problem — interactive acquisition chain (what you hear vs. what's broken)
-4. 02 The difference — FIND → PROVE → FIX → AUTOMATE + "If / Then" rule
-5. 03 Problems we solve — pattern cards (symptom → break → fix)
-6. 04 Solutions — Conversion Path Rescue, Referral Channel Build, Revenue Automation
-7. 05 How we work — Find, Diagnose, Build, Automate, Improve
-8. 06 Evidence — sample findings report
-9. 07 Technology — capabilities with "when it earns its place"
-10. 08 FAQ
-11. Final CTA — "There's probably a bottleneck somewhere. Let's find it."
+Nav (Services / Our Work / Process / About + Book a Call) → Hero + montage + filmstrip →
+01 Services → 02 Our Work → kinetic band → 03 Process → 04 Why MakeMeFound (About) →
+Intro call CTA → Footer.
 
-## Copy rules
+## Adding real work
 
-Short sentences. Specific nouns. Plain English. Never: unlock, leverage, revolutionize,
-10x, cutting-edge, game-changing, synergy, AI-powered solutions, end-to-end, growth engine,
-transform your business.
+Edit `lib/portfolio.ts`: set `sample: false` and add `youtubeId`, or `videoSrc` + `poster`
+(files in `public/work/`). Only publish work you have permission to share.
+
+## Leads
+
+Every booking CTA opens one intake form that posts to `/api/growth-call`, which forwards to
+the Google Apps Script web app (`GOOGLE_SHEET_WEBHOOK_URL`). Payload keys are unchanged:
+`businessName` = channel, `website` = channel URL, `serviceArea` = services,
+`idealAccounts` = channel & workflow.

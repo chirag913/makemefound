@@ -29,9 +29,9 @@ export async function POST(request: NextRequest) {
     name: parsed.data.name,
     businessName: parsed.data.businessName,
     website: parsed.data.website,
-    serviceArea: parsed.data.serviceArea,
+    serviceArea: parsed.data.serviceArea || "",
     email: parsed.data.email,
-    phone: parsed.data.phone,
+    phone: parsed.data.phone || "",
     idealAccounts: parsed.data.idealAccounts || "",
   };
 

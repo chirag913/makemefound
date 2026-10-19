@@ -1,5 +1,5 @@
 /**
- * MakeMeFound — Growth Call request intake for Google Sheets.
+ * MakeMeFound — intro call request intake for Google Sheets.
  *
  * SETUP (one time):
  * 1. Create a new Google Sheet (sheets.new).
@@ -15,6 +15,11 @@
  *
  * Every submission appends a row to this sheet AND sends a notification email.
  * Re-run Deploy > Manage deployments > edit (pencil) > New version any time you change this file.
+ *
+ * The website sends the same field keys it always has (name, businessName, website,
+ * serviceArea, email, phone, idealAccounts), so an existing deployment keeps working.
+ * Redeploying this version only updates the column and email labels for creators.
+ * Existing sheets keep their old header row; rename row 1 by hand if you want the new labels.
  */
 
 const NOTIFICATION_EMAIL = "hello@makemefound.com";
@@ -22,12 +27,12 @@ const NOTIFICATION_EMAIL = "hello@makemefound.com";
 const HEADERS = [
   "Timestamp",
   "Name",
-  "Company Name",
-  "Website",
-  "Service Area",
+  "Channel / Brand",
+  "Channel URL",
+  "Services",
   "Email",
   "Phone",
-  "Ideal Accounts",
+  "Channel & Workflow",
 ];
 
 function doPost(e) {
@@ -56,7 +61,7 @@ function doPost(e) {
 
 function doGet() {
   return ContentService.createTextOutput(
-    JSON.stringify({ ok: true, message: "MakeMeFound growth call intake is live." })
+    JSON.stringify({ ok: true, message: "MakeMeFound intro call intake is live." })
   ).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -69,15 +74,15 @@ function ensureHeaders(sheet) {
 }
 
 function sendNotificationEmail(data) {
-  const subject = "New Growth Call request - " + (data.businessName || "Unknown business");
+  const subject = "New intro call request - " + (data.businessName || "Unknown channel");
   const body = [
     "Name: " + (data.name || ""),
-    "Company: " + (data.businessName || ""),
-    "Website: " + (data.website || ""),
-    "Service area: " + (data.serviceArea || ""),
+    "Channel / brand: " + (data.businessName || ""),
+    "Channel URL: " + (data.website || ""),
+    "Services: " + (data.serviceArea || ""),
     "Email: " + (data.email || ""),
     "Phone: " + (data.phone || ""),
-    "Ideal accounts: " + (data.idealAccounts || "")
+    "Channel & workflow: " + (data.idealAccounts || "")
   ].join("\n");
 
   MailApp.sendEmail({

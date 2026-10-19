@@ -36,8 +36,8 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-fg">1. Overview</h2>
               <p className="mt-3">
                 MakeMeFound (&ldquo;MakeMeFound,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
-                &ldquo;our&rdquo;) provides customer-acquisition diagnostics, conversion,
-                referral-channel and automation services to businesses in the United States. This Privacy Policy explains
+                &ldquo;our&rdquo;) provides YouTube content production services — long-form
+                video editing, short-form repurposing and content packaging — to creators and businesses. This Privacy Policy explains
                 what information we collect through makemefound.com (the &ldquo;Site&rdquo;), how
                 we use it, and the choices you have.
               </p>
@@ -45,11 +45,11 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-lg font-semibold text-fg">2. Information We Collect</h2>
-              <p className="mt-3">When you submit the Growth Call form, we collect:</p>
+              <p className="mt-3">When you submit the intro call form, we collect:</p>
               <ul className="mt-3 list-disc space-y-1.5 pl-5">
-                <li>Your name and contact details (email, phone)</li>
-                <li>Your company name, website, and service area</li>
-                <li>Any additional information you choose to share about your ideal accounts</li>
+                <li>Your name and contact details (email, and phone if you provide it)</li>
+                <li>Your channel or brand name, channel link, and the services you&apos;re interested in</li>
+                <li>Any additional information you choose to share about your channel and content workflow</li>
               </ul>
               <p className="mt-3">
                 We also collect standard analytics data automatically through Google Analytics 4,
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">3. How We Use Your Information</h2>
               <ul className="mt-3 list-disc space-y-1.5 pl-5">
-                <li>To respond to your Growth Call request and provide the services you asked for</li>
+                <li>To respond to your intro call request and provide the services you asked for</li>
                 <li>To communicate with you about your account or engagement with us</li>
                 <li>To improve our website, services, and marketing</li>
                 <li>To comply with legal obligations</li>
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-fg">4. How We Share Your Information</h2>
               <p className="mt-3">
                 We do not sell your personal information. We do not share the information you
-                submit through the Growth Call form with third parties for their own marketing
+                submit through the intro call form with third parties for their own marketing
                 purposes.
                 We may share information with service providers who help us operate the Site and
                 deliver our services (for example, hosting, database, and email-delivery

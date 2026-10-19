@@ -22,15 +22,15 @@ export async function sendGrowthCallNotification(data: {
     from: process.env.RESEND_FROM_EMAIL || "MakeMeFound <onboarding@resend.dev>",
     to: NOTIFICATION_RECIPIENT,
     replyTo: data.email,
-    subject: `New Growth Call request — ${data.businessName}`,
+    subject: `New intro call request — ${data.businessName}`,
     text: [
       `Name: ${data.name}`,
-      `Company: ${data.businessName}`,
-      `Website: ${data.website}`,
-      `Service area: ${data.serviceArea}`,
+      `Channel / brand: ${data.businessName}`,
+      `Channel URL: ${data.website}`,
+      `Services: ${data.serviceArea}`,
       `Email: ${data.email}`,
       `Phone: ${data.phone}`,
-      `Ideal accounts: ${data.idealAccounts}`,
+      `Channel & workflow: ${data.idealAccounts}`,
     ].join("\n"),
   });
 }

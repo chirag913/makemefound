@@ -14,7 +14,7 @@ const geist = Geist({
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-geist-label",
   subsets: ["latin"],
 });
 
@@ -26,6 +26,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const title = `${SITE_NAME} — ${SITE_TAGLINE}`;
+const keywords = ["YouTube editing", "YouTube video editor", "short-form repurposing", "YouTube Shorts editing", "content packaging", "YouTube thumbnails", "business YouTube", "creator studio"];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords,
   alternates: { canonical: "/" },
   openGraph: {
     title,
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a09",
+  themeColor: "#09090b",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

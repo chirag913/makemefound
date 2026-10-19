@@ -4,7 +4,7 @@ const base =
   "group inline-flex items-center justify-center gap-2.5 rounded-full text-[0.9375rem] font-medium tracking-[-0.01em] whitespace-nowrap focus-ring transition-[background-color,border-color,color,transform] duration-200 ease-out active:scale-[0.98]";
 
 const variants = {
-  // Paper on ink. The signal color is reserved for leaks, not buttons.
+  // White on charcoal. Violet stays an accent, not a button fill.
   primary: "bg-fg text-bg hover:bg-white",
   secondary: "border border-line-strong text-fg hover:border-line-hover hover:bg-white/[0.03]",
   ghost: "text-fg-muted hover:text-fg",

@@ -1,6 +1,11 @@
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://makemefound.com";
 export const SITE_NAME = "MakeMeFound";
-export const SITE_TAGLINE = "Find where growth breaks. Fix it.";
+export const SITE_TAGLINE = "YouTube content production for business creators";
 export const SITE_DESCRIPTION =
-  "MakeMeFound finds where a business's customer acquisition breaks — from ad to landing page, form, booking, CRM and follow-up — shows you the evidence, then builds the fix: conversion paths, referral channels and revenue automation.";
+  "MakeMeFound is a YouTube content production and growth studio. We help business and educational creators turn their expertise into compelling videos through long-form editing, content packaging and short-form repurposing.";
 export const CONTACT_EMAIL = "hello@makemefound.com";
+
+export const SOCIAL_LINKS = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/makemefound" },
+  { label: "X", href: "https://x.com/makemefoundai" },
+];

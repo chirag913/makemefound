@@ -90,7 +90,7 @@ export default function Navbar() {
                   className="flex items-baseline gap-4 border-b border-line py-4 text-lg tracking-[-0.02em] text-fg focus-ring"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <span className="t-mono text-fg-faint">0{i + 1}</span>
+                  <span className="t-label text-fg-faint">0{i + 1}</span>
                   {link.label}
                 </a>
               </li>

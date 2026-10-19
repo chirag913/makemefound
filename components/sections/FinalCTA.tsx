@@ -1,56 +1,57 @@
-import Button from "../Button";
-import BottleneckButton from "../BottleneckButton";
+import BookCallButton from "../BookCallButton";
 import Reveal from "../Reveal";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const NEXT = [
-  ["You tell us where to look", "Your site, your market, and where growth feels stuck. Two minutes."],
-  ["We test your journey", "Before we talk. As a buyer would, on the devices they use."],
-  ["We show you what we found", "Then you decide if it’s worth fixing. No obligation to buy."],
+  ["Tell us about your channel", "Your content, your workflow, and where you need help. About two minutes."],
+  ["We review it before we talk", "So the call is about your videos, not a generic pitch."],
+  ["We decide together", "If we’re a good fit, we’ll suggest a starting point. If not, we’ll say so."],
 ];
 
 export default function FinalCTA() {
   return (
-    <section className="relative overflow-hidden border-t border-line" aria-labelledby="final-cta-title">
-      <div aria-hidden="true" className="grid-bg pointer-events-none absolute inset-0 -z-10 opacity-50 [mask-image:radial-gradient(ellipse_60%_70%_at_50%_100%,#000,transparent_75%)]" />
-      <div className="container-x py-[clamp(112px,16vw,224px)]">
+    <section id="contact" className="relative overflow-hidden border-t border-line" aria-labelledby="final-cta-title">
+      <div aria-hidden="true" className="studio-light pointer-events-none absolute inset-0 -z-10 rotate-180" />
+      <div className="container-x py-[clamp(112px,15vw,208px)]">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
-        <Reveal className="lg:col-span-8">
-          <p className="t-mono flex items-center gap-3 text-fg-muted">
-            <span className="dot dot-live" aria-hidden="true" /> Start with a diagnosis
-          </p>
-          <h2 id="final-cta-title" className="mt-8 text-[clamp(2.5rem,5vw,4.4rem)] font-medium leading-[0.98] tracking-[-0.045em] text-fg">
-            <span className="sm:block">There&apos;s probably a</span>{" "}
-            <span className="sm:block">bottleneck somewhere.</span>{" "}
-            <span className="t-em sm:block">Let&apos;s find it.</span>
-          </h2>
-          <p className="t-lead mt-8 max-w-xl text-fg-muted">
-            Tell us where to look. We&apos;ll review your customer journey before we talk, so the
-            first conversation is about your business — not a pitch.
-          </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <BottleneckButton location="final_cta" />
-            <Button as="a" href="#process" variant="secondary">
-              See how we work
-            </Button>
-          </div>
-        </Reveal>
+          <Reveal className="lg:col-span-7">
+            <p className="t-label flex items-center gap-3 text-fg-muted">
+              <span className="dot dot-accent" aria-hidden="true" /> Intro call
+            </p>
+            <h2
+              id="final-cta-title"
+              className="mt-8 text-balance text-[clamp(2.5rem,5.6vw,5rem)] font-semibold leading-[0.97] tracking-[-0.05em] text-fg"
+            >
+              Let&apos;s make your next video your <span className="t-em text-accent-strong">best-produced one yet.</span>
+            </h2>
+            <p className="t-lead mt-8 max-w-xl text-fg-muted">
+              Tell us about your channel, your content workflow, and where you need help. We&apos;ll discuss
+              whether we&apos;re a good fit.
+            </p>
+            <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+              <BookCallButton location="final_cta" label="Book an Intro Call" />
+              <a href={`mailto:${CONTACT_EMAIL}`} className="link-underline text-sm text-fg-muted transition-colors hover:text-fg focus-ring rounded-sm">
+                or email {CONTACT_EMAIL}
+              </a>
+            </div>
+          </Reveal>
 
-        <Reveal delay={120} className="lg:col-span-4 lg:self-end">
-          <div className="card p-6 sm:p-7">
-            <p className="t-mono text-fg-subtle">What happens next</p>
-            <ol className="mt-5 divide-y divide-line">
-              {NEXT.map(([t, d], i) => (
-                <li key={t} className="grid grid-cols-[2rem_1fr] py-4 first:pt-0 last:pb-0">
-                  <span className="t-mono pt-1 tabular-nums text-fg-faint">0{i + 1}</span>
-                  <div>
-                    <p className="text-[0.975rem] font-medium tracking-[-0.015em] text-fg">{t}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-fg-subtle">{d}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Reveal>
+          <Reveal delay={120} className="lg:col-span-4 lg:col-start-9 lg:self-end">
+            <div className="panel p-6 sm:p-7">
+              <p className="t-label text-fg-subtle">What happens next</p>
+              <ol className="mt-5 divide-y divide-line">
+                {NEXT.map(([t, d], i) => (
+                  <li key={t} className="grid grid-cols-[2rem_1fr] py-4 first:pt-0 last:pb-0">
+                    <span className="t-label pt-1 text-accent">0{i + 1}</span>
+                    <div>
+                      <p className="font-medium tracking-[-0.015em] text-fg">{t}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-fg-subtle">{d}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

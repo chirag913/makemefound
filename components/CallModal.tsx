@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useCallModal } from "./CallModalContext";
 import { trackEvent } from "@/lib/analytics";
+import { SERVICES } from "@/lib/nav";
 
 type FormState = {
   name: string;
@@ -87,6 +88,14 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
+  // Services are stored as a comma-separated list in the existing `serviceArea` key,
+  // so the Google Sheet keeps receiving the same payload shape.
+  const selected = form.serviceArea ? form.serviceArea.split(", ") : [];
+  function toggleService(label: string) {
+    const next = selected.includes(label) ? selected.filter((s) => s !== label) : [...selected, label];
+    handleFieldChange("serviceArea", SERVICES.map((s) => s.label).filter((l) => next.includes(l)).join(", "));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("submitting");
@@ -115,7 +124,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/75 px-4 py-6 backdrop-blur-md animate-fade-in sm:items-center sm:py-10"
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/80 px-4 py-6 backdrop-blur-md animate-fade-in sm:items-center sm:py-10"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -126,11 +135,11 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
         aria-modal="true"
         aria-labelledby="call-modal-title"
         aria-describedby="call-modal-desc"
-        className="artifact relative w-full max-w-xl animate-dialog-in"
+        className="frame relative w-full max-w-xl !overflow-visible bg-surface animate-dialog-in"
       >
-        <div className="artifact-bar">
-          <span className="t-mono flex items-center gap-2.5 text-fg-muted">
-            <span className="dot dot-live" aria-hidden="true" /> New diagnosis request
+        <div className="flex items-center justify-between border-b border-line px-5 py-3.5 sm:px-6">
+          <span className="t-label flex items-center gap-2.5 text-fg-muted">
+            <span className="dot dot-accent" aria-hidden="true" /> Intro call request
           </span>
           <button
             type="button"
@@ -147,15 +156,15 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
         <div className="p-6 sm:p-8">
           {status === "success" ? (
             <div className="py-6">
-              <span className="t-mono flex items-center gap-2 text-ok">
-                <span className="dot dot-ok" aria-hidden="true" /> Received
+              <span className="t-label flex items-center gap-2 text-accent">
+                <span className="dot dot-accent" aria-hidden="true" /> Received
               </span>
               <h2 id="call-modal-title" className="t-h3 mt-5 text-fg">
-                Got it. We&apos;ll start looking.
+                Thanks — we&apos;ll be in touch.
               </h2>
               <p id="call-modal-desc" className="t-body mt-3 max-w-[42ch] text-fg-muted">
-                We&apos;ll review your site and customer journey before we reach out, so the first
-                conversation is about what we found — not a pitch.
+                We&apos;ll look at your channel before we reply, then email you to set up a time for the
+                intro call.
               </p>
               <button
                 type="button"
@@ -168,14 +177,14 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
           ) : (
             <>
               <h2 id="call-modal-title" className="t-h3 text-fg">
-                Let&apos;s find your bottleneck.
+                Book an intro call
               </h2>
               <p id="call-modal-desc" className="t-body mt-2 text-fg-muted">
-                Tell us where to look. We&apos;ll review your journey and follow up to set a time to
-                walk you through what we see.
+                Tell us about your channel and where you need help. We&apos;ll review it and email you to
+                schedule a time.
               </p>
 
-              <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+              <form onSubmit={handleSubmit} className="mt-7 space-y-5">
                 {/* Honeypot — hidden from real users, catches simple bots */}
                 <div className="hidden" aria-hidden="true">
                   <label htmlFor="company_website">Leave this field empty</label>
@@ -190,7 +199,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="Name" htmlFor="name">
+                  <Field label="Your name" htmlFor="name">
                     <input
                       ref={firstFieldRef}
                       id="name"
@@ -202,47 +211,6 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                       className={inputClasses}
                     />
                   </Field>
-                  <Field label="Company" htmlFor="businessName">
-                    <input
-                      id="businessName"
-                      name="businessName"
-                      autoComplete="organization"
-                      required
-                      value={form.businessName}
-                      onChange={(e) => handleFieldChange("businessName", e.target.value)}
-                      className={inputClasses}
-                    />
-                  </Field>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="Website" htmlFor="website">
-                    <input
-                      id="website"
-                      name="website"
-                      autoComplete="url"
-                      inputMode="url"
-                      required
-                      placeholder="yourcompany.com"
-                      value={form.website}
-                      onChange={(e) => handleFieldChange("website", e.target.value)}
-                      className={inputClasses}
-                    />
-                  </Field>
-                  <Field label="Market or service area" htmlFor="serviceArea">
-                    <input
-                      id="serviceArea"
-                      name="serviceArea"
-                      required
-                      placeholder="City, region or ZIP codes"
-                      value={form.serviceArea}
-                      onChange={(e) => handleFieldChange("serviceArea", e.target.value)}
-                      className={inputClasses}
-                    />
-                  </Field>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <Field label="Email" htmlFor="email">
                     <input
                       id="email"
@@ -255,46 +223,98 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                       className={inputClasses}
                     />
                   </Field>
-                  <Field label="Phone" htmlFor="phone">
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field label="Channel or brand name" htmlFor="businessName">
                     <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      autoComplete="tel"
+                      id="businessName"
+                      name="businessName"
+                      autoComplete="organization"
                       required
-                      value={form.phone}
-                      onChange={(e) => handleFieldChange("phone", e.target.value)}
+                      value={form.businessName}
+                      onChange={(e) => handleFieldChange("businessName", e.target.value)}
+                      className={inputClasses}
+                    />
+                  </Field>
+                  <Field label="Channel link" htmlFor="website">
+                    <input
+                      id="website"
+                      name="website"
+                      inputMode="url"
+                      autoComplete="url"
+                      required
+                      placeholder="youtube.com/@yourchannel"
+                      value={form.website}
+                      onChange={(e) => handleFieldChange("website", e.target.value)}
                       className={inputClasses}
                     />
                   </Field>
                 </div>
 
-                <Field label="Where does growth feel stuck?" hint="Optional" htmlFor="idealAccounts">
+                <fieldset>
+                  <legend className="mb-2 flex w-full items-baseline justify-between text-xs font-medium text-fg-muted">
+                    What do you need help with?
+                    <span className="t-label text-fg-faint">Pick any</span>
+                  </legend>
+                  <div className="flex flex-wrap gap-2">
+                    {SERVICES.map((svc) => {
+                      const on = selected.includes(svc.label);
+                      return (
+                        <button
+                          key={svc.id}
+                          type="button"
+                          aria-pressed={on}
+                          onClick={() => toggleService(svc.label)}
+                          className={`h-10 rounded-full border px-4 text-sm transition-colors focus-ring ${
+                            on ? "border-accent bg-accent-soft text-fg" : "border-line-strong text-fg-muted hover:border-line-hover hover:text-fg"
+                          }`}
+                        >
+                          {svc.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+
+                <Field label="Your channel and workflow" hint="Optional" htmlFor="idealAccounts">
                   <textarea
                     id="idealAccounts"
                     name="idealAccounts"
                     rows={3}
-                    placeholder="e.g. ads get clicks but few calls · want more referrals from realtors · leads go cold"
+                    placeholder="e.g. one long video a week, recorded on Mondays · want shorts from each · editing in-house today"
                     value={form.idealAccounts}
                     onChange={(e) => handleFieldChange("idealAccounts", e.target.value)}
                     className={`${inputClasses} h-auto resize-none py-3`}
                   />
                 </Field>
 
+                <Field label="Phone or WhatsApp" hint="Optional" htmlFor="phone">
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    value={form.phone}
+                    onChange={(e) => handleFieldChange("phone", e.target.value)}
+                    className={inputClasses}
+                  />
+                </Field>
+
                 {status === "error" && (
-                  <p role="alert" className="flex items-center gap-2 text-sm text-signal">
-                    <span className="dot dot-signal" aria-hidden="true" />
+                  <p role="alert" className="flex items-center gap-2 text-sm text-rec">
+                    <span className="dot bg-rec" aria-hidden="true" />
                     {errorMessage}
                   </p>
                 )}
 
-                <div className="pt-3">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={status === "submitting"}
                     className="group inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-full bg-fg px-6 text-[0.9375rem] font-medium text-bg transition-colors hover:bg-white focus-ring disabled:opacity-60"
                   >
-                    {status === "submitting" ? "Sending…" : "Find my bottleneck"}
+                    {status === "submitting" ? "Sending…" : "Request intro call"}
                     {status !== "submitting" && (
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="arrow-nudge">
                         <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -302,8 +322,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                     )}
                   </button>
                   <p className="mt-4 text-center text-xs leading-relaxed text-fg-subtle">
-                    No commitment to buy anything. We don&apos;t share your information with third
-                    parties.
+                    No obligation. We don&apos;t share your information with third parties.
                   </p>
                 </div>
               </form>
@@ -316,7 +335,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
 }
 
 const inputClasses =
-  "h-11 w-full rounded-[var(--radius-md)] border border-line-strong bg-bg/60 px-3.5 text-[0.9375rem] text-fg placeholder:text-fg-faint transition-colors hover:border-line-hover focus:border-fg-muted focus:outline-none focus-visible:outline-none";
+  "h-11 w-full rounded-[var(--radius-sm)] border border-line-strong bg-bg/60 px-3.5 text-[0.9375rem] text-fg placeholder:text-fg-faint transition-colors hover:border-line-hover focus:border-accent focus:outline-none";
 
 function Field({
   label,
@@ -333,7 +352,7 @@ function Field({
     <div>
       <label htmlFor={htmlFor} className="mb-2 flex items-baseline justify-between text-xs font-medium text-fg-muted">
         {label}
-        {hint && <span className="t-mono text-fg-faint">{hint}</span>}
+        {hint && <span className="t-label text-fg-faint">{hint}</span>}
       </label>
       {children}
     </div>

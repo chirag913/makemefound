@@ -1,59 +1,58 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   MakeMeFound design tokens
-   One product, one system. Sections never define their own colors.
+   MakeMeFound — studio design tokens
+   One system. Sections never invent their own colors or spacing.
    ========================================================================== */
 
 :root {
-  /* Surfaces — warm ink, not blue-black */
-  --color-bg: #0a0a09;
-  --color-bg-raised: #0f0f0e;
-  --color-surface: #141413;
-  --color-surface-2: #1a1a18;
+  /* Surfaces — deep charcoal, never pure black */
+  --color-bg: #09090b;
+  --color-bg-raised: #0e0e11;
+  --color-surface: #131317;
+  --color-surface-2: #1a1a1f;
 
-  /* Text — paper, not pure white */
-  --color-fg: #edebe6;
-  --color-fg-muted: #a3a19a;
-  --color-fg-subtle: #6f6d67;
-  --color-fg-faint: #4a4944;
+  /* Text */
+  --color-fg: #f4f3f7;
+  --color-fg-muted: #a6a4b0;
+  --color-fg-subtle: #6e6c78;
+  --color-fg-faint: #45434d;
 
   /* Lines */
-  --color-line: rgba(237, 235, 230, 0.08);
-  --color-line-strong: rgba(237, 235, 230, 0.14);
-  --color-line-hover: rgba(237, 235, 230, 0.24);
+  --color-line: rgba(244, 243, 247, 0.08);
+  --color-line-strong: rgba(244, 243, 247, 0.14);
+  --color-line-hover: rgba(244, 243, 247, 0.24);
 
-  /* Signal — used only to mean "leak / attention / this matters" */
-  --color-signal: #ff5a1f;
-  --color-signal-soft: rgba(255, 90, 31, 0.12);
-  --color-signal-line: rgba(255, 90, 31, 0.4);
+  /* Violet — the only accent. Used for emphasis, active states and focus. */
+  --color-accent: #8b7bff;
+  --color-accent-strong: #a597ff;
+  --color-accent-soft: rgba(139, 123, 255, 0.12);
+  --color-accent-line: rgba(139, 123, 255, 0.4);
 
-  /* Fixed — used only for resolved states inside diagnostic artifacts */
-  --color-ok: #62d49b;
-  --color-ok-soft: rgba(98, 212, 155, 0.1);
+  /* Recording red — only for the REC indicator in media frames */
+  --color-rec: #ff4d4d;
 
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
+  /* Radius — restrained; media frames are nearly square-cornered */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 
-  /* Elevation — hairlines first, shadows only for floating artifacts */
-  --shadow-artifact: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 40px 80px -24px rgba(0, 0, 0, 0.7),
+  /* Elevation */
+  --shadow-frame: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset, 0 50px 100px -30px rgba(0, 0, 0, 0.8),
     0 0 0 1px var(--color-line-strong);
-  --shadow-inset: 0 1px 0 0 rgba(255, 255, 255, 0.035) inset;
+  --shadow-inset: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
 
   /* Layout */
-  --container: 1240px;
-  --gutter: clamp(20px, 4vw, 40px);
-  --section-y: clamp(96px, 12vw, 176px);
+  --container: 1280px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --section-y: clamp(96px, 12vw, 168px);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast: 160ms;
   --dur-base: 280ms;
-  --dur-slow: 700ms;
+  --dur-slow: 800ms;
 }
 
 @theme inline {
@@ -68,26 +67,20 @@
   --color-line: var(--color-line);
   --color-line-strong: var(--color-line-strong);
   --color-line-hover: var(--color-line-hover);
-  --color-signal: var(--color-signal);
-  --color-signal-soft: var(--color-signal-soft);
-  --color-signal-line: var(--color-signal-line);
-  --color-ok: var(--color-ok);
-  --color-ok-soft: var(--color-ok-soft);
+  --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-line: var(--color-accent-line);
+  --color-rec: var(--color-rec);
 
-  /* Legacy aliases kept so the legal pages keep rendering */
-  --color-accent: var(--color-signal);
-  --color-accent-hover: #ff7a47;
+  /* Aliases used by the legal pages */
+  --color-accent-hover: var(--color-accent-strong);
   --color-border: var(--color-line);
   --color-border-strong: var(--color-line-strong);
 
   --font-sans: var(--font-geist);
-  --font-mono: var(--font-geist-mono);
+  --font-label: var(--font-geist-label);
   --font-serif: var(--font-instrument-serif);
-
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
 
   --animate-fade-in: fade-in 0.4s var(--ease-out) forwards;
   --animate-dialog-in: dialog-in 0.45s var(--ease-out) forwards;
@@ -127,7 +120,6 @@ body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
   text-rendering: optimizeLegibility;
 }
 
@@ -137,8 +129,8 @@ select option {
 }
 
 ::selection {
-  background: var(--color-signal);
-  color: #0a0a09;
+  background: var(--color-accent);
+  color: #09090b;
 }
 
 .text-balance {
@@ -148,8 +140,9 @@ select option {
   text-wrap: pretty;
 }
 
+@layer components {
 /* ==========================================================================
-   Layout primitives
+   Layout
    ========================================================================== */
 
 .container-x {
@@ -168,25 +161,25 @@ select option {
    ========================================================================== */
 
 .t-display {
-  font-size: clamp(2.6rem, 7vw, 6rem);
-  line-height: 0.96;
-  letter-spacing: -0.048em;
-  font-weight: 500;
+  font-size: clamp(2.75rem, 7.4vw, 6.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-weight: 600;
 }
 .t-h2 {
-  font-size: clamp(2.1rem, 4.6vw, 4rem);
-  line-height: 1;
-  letter-spacing: -0.042em;
-  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 600;
 }
 .t-h3 {
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
-  line-height: 1.15;
-  letter-spacing: -0.028em;
-  font-weight: 500;
+  font-size: clamp(1.4rem, 2.1vw, 1.875rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 600;
 }
 .t-lead {
-  font-size: clamp(1.075rem, 1.35vw, 1.25rem);
+  font-size: clamp(1.075rem, 1.4vw, 1.3rem);
   line-height: 1.55;
   letter-spacing: -0.012em;
 }
@@ -194,85 +187,80 @@ select option {
   font-size: 0.975rem;
   line-height: 1.65;
 }
-.t-mono {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+.t-label {
+  font-family: var(--font-geist-label), ui-monospace, monospace;
   font-size: 11px;
   line-height: 1.4;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.t-mono-sm {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+.t-code {
+  font-family: var(--font-geist-label), ui-monospace, monospace;
   font-size: 12px;
   line-height: 1.5;
-  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Editorial emphasis: one word, never a whole sentence */
+/* Editorial emphasis: one phrase per headline, never a sentence */
 .t-em {
   font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.01em;
-  font-size: 1.08em;
+  letter-spacing: -0.015em;
+  font-size: 1.06em;
 }
 
 /* ==========================================================================
    Surfaces
    ========================================================================== */
 
-.card {
+.panel {
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-inset);
 }
 
-.artifact {
+/* A media monitor: footage, timelines, phone frames */
+.frame {
   position: relative;
-  background: linear-gradient(180deg, var(--color-surface-2), var(--color-surface) 40%);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-artifact);
+  overflow: hidden;
+  background: #0b0b0e;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-frame);
 }
 
-.artifact-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--color-line);
+/* Placeholder footage: a lit backdrop, not a decorative gradient */
+.footage {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 70% at var(--fx, 50%) var(--fy, 42%), rgba(244, 243, 247, 0.09), transparent 70%),
+    linear-gradient(180deg, #16161b, #0c0c0f);
+}
+.footage::after {
+  /* film grain */
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.grid-bg {
+/* Rule-of-thirds guides used in monitor frames */
+.thirds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image:
-    linear-gradient(var(--color-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: -1px -1px;
+    linear-gradient(90deg, transparent calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px), transparent calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px)),
+    linear-gradient(180deg, transparent calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px), transparent calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px));
 }
 
-.fade-mask {
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+/* Restrained violet glow behind the hero composition only */
+.studio-light {
+  background: radial-gradient(50% 60% at 50% 0%, rgba(139, 123, 255, 0.16), transparent 70%);
 }
-
-.hairline {
-  height: 1px;
-  background: var(--color-line);
-}
-
-/* Dotted leader between items in a flow */
-.flow-line {
-  background-image: linear-gradient(90deg, var(--color-line-strong) 50%, transparent 0);
-  background-size: 6px 1px;
-  background-repeat: repeat-x;
-  height: 1px;
-}
-
-/* ==========================================================================
-   Status dots
-   ========================================================================== */
 
 .dot {
   display: inline-block;
@@ -282,26 +270,36 @@ select option {
   background: var(--color-fg-faint);
   flex: none;
 }
-.dot-signal {
-  background: var(--color-signal);
-  box-shadow: 0 0 0 3px var(--color-signal-soft);
+.dot-accent {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
-.dot-ok {
-  background: var(--color-ok);
-  box-shadow: 0 0 0 3px var(--color-ok-soft);
+.dot-rec {
+  background: var(--color-rec);
+  animation: rec 1.6s var(--ease-in-out) infinite;
 }
-.dot-live {
-  background: var(--color-signal);
-  animation: pulse-dot 2s var(--ease-in-out) infinite;
-}
-
-@keyframes pulse-dot {
+@keyframes rec {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.45);
+    opacity: 1;
   }
   50% {
-    box-shadow: 0 0 0 5px rgba(255, 90, 31, 0);
+    opacity: 0.35;
+  }
+}
+
+}
+
+/* Playhead sweep across timelines */
+.playhead {
+  animation: playhead 9s linear infinite;
+}
+@keyframes playhead {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
   }
 }
 
@@ -311,7 +309,7 @@ select option {
 
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition:
     opacity var(--dur-slow) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
@@ -319,15 +317,6 @@ select option {
 .reveal.is-visible {
   opacity: 1;
   transform: none;
-}
-
-.scan-sweep {
-  position: absolute;
-  inset-inline: 0;
-  height: 56px;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(237, 235, 230, 0.05), transparent);
-  transition: transform 600ms var(--ease-out);
 }
 
 .link-underline {
@@ -357,7 +346,8 @@ select option {
     transform: none;
     transition: none;
   }
-  .dot-live {
+  .dot-rec,
+  .playhead {
     animation: none;
   }
   *,
@@ -377,6 +367,86 @@ select option {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid var(--color-fg);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Studio motion layer
+   ========================================================================== */
+
+/* Headline: words rise in, staggered via inline animation-delay */
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em);
+  filter: blur(8px);
+  animation: word-in 0.9s var(--ease-out) forwards;
+}
+@keyframes word-in {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* Infinite horizontal strips — content is duplicated, so -50% loops seamlessly */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-dur, 60s) linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee-host:hover .marquee {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.edge-fade {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Outlined display type for the kinetic band */
+.t-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 243, 247, 0.34);
+}
+
+/* Cursor spotlight on panels (coordinates set by <Spotlight />) */
+.panel {
+  position: relative;
+  isolation: isolate;
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(139, 123, 255, 0.09), transparent 60%);
+}
+.panel:hover::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+  .marquee {
+    animation: none;
+  }
 }

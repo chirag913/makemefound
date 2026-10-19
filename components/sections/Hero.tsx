@@ -1,61 +1,134 @@
 import Button from "../Button";
-import BottleneckButton from "../BottleneckButton";
-import JourneyScan from "../artifacts/JourneyScan";
+import BookCallButton from "../BookCallButton";
+import MediaFrame, { Caption, Presenter } from "../media/MediaFrame";
+import Timeline from "../media/Timeline";
+import Timecode from "../media/Timecode";
+import Filmstrip from "../media/Filmstrip";
+
+function Words({ text, from = 0, className = "" }: { text: string; from?: number; className?: string }) {
+  return (
+    <>
+      {text.split(" ").map((w, i, all) => (
+        <span key={i}>
+          <span className={`word ${className}`} style={{ animationDelay: `${(from + i) * 70}ms` }}>
+            {w}
+          </span>
+          {i < all.length - 1 && " "}
+        </span>
+      ))}
+    </>
+  );
+}
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div aria-hidden="true" className="grid-bg fade-mask pointer-events-none absolute inset-0 -z-10 opacity-60" />
+    <section id="top" className="relative overflow-hidden" aria-labelledby="hero-title">
+      <div aria-hidden="true" className="studio-light pointer-events-none absolute inset-x-0 top-0 -z-10 h-[900px]" />
 
-      <div className="container-x pb-20 pt-14 sm:pt-20 lg:pb-32 lg:pt-24">
-        <p className="t-mono flex flex-wrap items-center gap-x-3 gap-y-2 text-fg-muted">
-          <span className="dot dot-live" aria-hidden="true" />
-          Customer acquisition diagnostics &amp; build
-          <span className="hidden text-fg-faint sm:inline">/</span>
-          <span className="text-fg-subtle">For businesses that sell a considered service</span>
+      <div className="container-x pt-14 sm:pt-20 lg:pt-28">
+        <p className="t-label flex items-center gap-3 text-fg-muted">
+          <span className="dot dot-accent" aria-hidden="true" />
+          YouTube production studio for business creators
         </p>
 
-        <h1 className="t-display mt-8 text-balance text-fg sm:mt-10 sm:text-wrap">
-          <span className="sm:block">Your growth is stuck</span>{" "}
-          <span className="sm:block">
-            somewhere <span className="t-em">specific.</span>
-          </span>{" "}
-          <span className="text-fg-subtle sm:block">We find it. Then we fix it.</span>
+        <h1 id="hero-title" className="t-display mt-8 max-w-[14ch] text-balance text-fg sm:mt-10 lg:max-w-none">
+          <span className="lg:block"><Words text="You bring the expertise." /></span>{" "}
+          <span className="lg:block"><Words text="We make the content" from={4} /></span>{" "}
+          <span className="t-em text-accent-strong lg:block"><Words text="work harder." from={8} /></span>
         </h1>
 
-        <div className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
-            <p className="t-lead max-w-[34rem] text-pretty text-fg-muted">
-              We test your customer journey the way a buyer would, from the ad to the booked
-              call. We show you exactly where leads leak, with evidence. Then we build the fix:
-              the page, the follow-up, the referral channel, or the automation.
-            </p>
-
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <BottleneckButton location="hero" />
-              <Button as="a" href="#process" variant="secondary">
-                See how we work
-              </Button>
-            </div>
-
-            <dl className="mt-12 grid max-w-[34rem] grid-cols-3 border-t border-line pt-6">
-              {[
-                ["Find", "the break"],
-                ["Prove", "it to you"],
-                ["Fix", "& automate"],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <dt className="text-sm font-medium text-fg">{k}</dt>
-                  <dd className="mt-0.5 text-sm text-fg-subtle">{v}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="lg:col-span-7">
-            <JourneyScan />
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:mt-12 lg:grid-cols-12 lg:items-end lg:gap-10">
+          <p className="t-lead max-w-[38rem] text-pretty text-fg-muted lg:col-span-7">
+            We help business and educational YouTubers turn their ideas into compelling videos
+            through editing, content packaging, and short-form repurposing.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
+            <BookCallButton location="hero" />
+            <Button as="a" href="#work" variant="secondary">
+              See Our Work
+            </Button>
           </div>
         </div>
+      </div>
+
+      {/* Montage: program monitor, vertical cut, timeline */}
+      <div className="container-x mt-16 pb-16 sm:mt-20 lg:mt-24 lg:pb-20">
+        <div className="relative">
+          <div className="grid grid-cols-12 gap-3 sm:gap-4">
+            <MediaFrame
+              className="col-span-12 sm:col-span-9"
+              timecode={<Timecode />}
+              rec
+              guides
+              label="Placeholder · showreel coming soon"
+              light={{ x: "42%", y: "36%" }}
+            >
+              <Presenter className="left-[42%] h-[80%]" />
+              <span
+                aria-hidden="true"
+                className="absolute right-[6%] top-[16%] hidden aspect-video w-[26%] rounded-[var(--radius-xs)] border border-line-strong bg-white/[0.04] sm:block"
+              >
+                <span className="t-label absolute left-2 top-2 text-fg-faint">B-roll</span>
+              </span>
+              <span aria-hidden="true" className="absolute left-[5%] top-[58%] hidden flex-col gap-1.5 md:flex">
+                <span className="h-[2px] w-10 bg-accent" />
+                <span className="text-base font-semibold tracking-[-0.02em] text-fg">Your name</span>
+                <span className="text-sm text-fg-muted">Founder · Your channel</span>
+              </span>
+              <div className="absolute inset-x-0 bottom-[24%] text-center sm:bottom-[14%]" aria-hidden="true">
+                <Caption className="text-sm sm:text-lg">
+                  The idea is yours. The <span className="text-accent-strong">retention</span> is our job.
+                </Caption>
+              </div>
+            </MediaFrame>
+
+            <div className="col-span-3 hidden sm:block">
+              <MediaFrame aspect="auto" className="h-full" label="Short · 9:16" timecode="0:38" light={{ x: "50%", y: "30%" }}>
+                <Presenter className="h-[58%]" />
+                <div className="absolute inset-x-2 top-[54%] text-center" aria-hidden="true">
+                  <Caption className="text-[11px] lg:text-[13px]">
+                    Stop explaining. <span className="text-accent-strong">Show it.</span>
+                  </Caption>
+                </div>
+              </MediaFrame>
+            </div>
+          </div>
+
+          <Timeline
+            className="mt-3 sm:mt-4"
+            markers={[
+              { at: 3, label: "Hook" },
+              { at: 18, label: "Context" },
+              { at: 48, label: "Pattern interrupt" },
+              { at: 70, label: "Chapter 3" },
+              { at: 94, label: "CTA" },
+            ]}
+          />
+        </div>
+
+        <ul className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line sm:grid-cols-3">
+          {[
+            ["01", "Long-form editing", "Story, pacing, hooks, finish"],
+            ["02", "Short-form repurposing", "Vertical clips from long recordings"],
+            ["03", "Content packaging", "Titles, thumbnails, topic research"],
+          ].map(([n, t, d]) => (
+            <li key={t} className="flex items-baseline gap-4 bg-bg px-5 py-5">
+              <span className="t-label text-accent">{n}</span>
+              <span>
+                <span className="block font-medium tracking-[-0.015em] text-fg">{t}</span>
+                <span className="mt-0.5 block text-sm text-fg-subtle">{d}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="pb-20 lg:pb-28">
+        <div className="container-x mb-5 flex items-center justify-between">
+          <span className="t-label text-fg-subtle">Short-form · sample frames</span>
+          <span className="t-label text-fg-faint">Hover to pause</span>
+        </div>
+        <Filmstrip />
       </div>
     </section>
   );

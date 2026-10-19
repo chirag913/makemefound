@@ -53,10 +53,9 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">2. Description of Services</h2>
               <p className="mt-3">
-                MakeMeFound provides customer-acquisition services to businesses, including
-                diagnosis of conversion paths, landing page and form fixes, referral-partner
-                research and outreach, follow-up, CRM and revenue automation, and related
-                integrations. Details of any specific engagement are
+                MakeMeFound provides YouTube content production services to creators and
+                businesses, including long-form video editing, short-form repurposing, and content
+                packaging such as title, thumbnail and topic support. Details of any specific engagement are
                 governed by a separate agreement between MakeMeFound and the client.
               </p>
             </section>
@@ -64,18 +63,18 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-fg">3. No Guaranteed Results</h2>
               <p className="mt-3">
-                MakeMeFound does not guarantee a specific number of clients, contracts, or sales
-                outcomes. Our goal is to generate qualified sales opportunities; you control
-                pricing, sales conversations, proposals, and closing. Any metrics, sample data, or
-                illustrative dashboards shown on this Site are for explanatory purposes only and do
-                not represent guaranteed outcomes.
+                MakeMeFound does not guarantee views, subscribers, revenue, or any other
+                channel performance outcome. Performance depends on many factors outside our
+                control, including your topics, audience, and the platforms themselves. Sample
+                frames, placeholder media, and illustrative examples shown on this Site are for
+                explanatory purposes only and do not represent client work or guaranteed outcomes.
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-fg">4. Growth Call Requests</h2>
+              <h2 className="text-lg font-semibold text-fg">4. Intro Call Requests</h2>
               <p className="mt-3">
-                Submitting the Growth Call form is a request for information and does not create a
+                Submitting the intro call form is a request for information and does not create a
                 service agreement. By submitting the form, you consent to be contacted by
                 MakeMeFound about your request.
               </p>

@@ -21,7 +21,8 @@ export default function Reveal({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        // Also reveal anything already scrolled past, so fast scrolls never leave blanks.
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
           setVisible(true);
           observer.disconnect();
         }
