@@ -3,51 +3,86 @@ import Reveal from "../Reveal";
 
 const SERVICES = [
   {
-    id: "long-form",
-    name: "Long-form YouTube editing",
-    body: "You record. We shape it into something people watch to the end — a clear story, a strong open, and no dead air between the ideas that matter.",
-    points: ["Storytelling and pacing", "Hook refinement", "B-roll and visual support", "Captions, sound and finishing"],
+    id: "acquisition",
+    name: "Customer acquisition",
+    problem: "Not enough of the right people know you exist, or new business depends on referrals arriving by chance.",
+    work: [
+      "Define who the best-fit customers and referral partners actually are",
+      "Research and verify prospects in your target market",
+      "Write and run targeted outreach, including follow-up",
+      "Build relationships with partners who already meet your customers",
+    ],
+    deliverable: "A researched prospect or partner list, outreach that runs on a schedule, and interested conversations handed to you.",
   },
   {
-    id: "short-form",
-    name: "Short-form repurposing",
-    body: "Your long videos already contain your best shorts. We find the moments that stand on their own and rebuild them for vertical, sound-off viewing.",
-    points: ["YouTube Shorts and vertical clips", "Strong opening moments", "Captions and platform formatting", "One recording, multiple assets"],
+    id: "conversion",
+    name: "Conversion optimization",
+    problem: "People find you and show interest, but too few reach the next meaningful step — a call, a consultation, a quote.",
+    work: [
+      "Walk the journey the way a prospect does, from ad or search to booking",
+      "Find friction: unclear pages, broken forms, slow or missing confirmations",
+      "Separate verified problems from assumptions before changing anything",
+      "Fix the parts of the journey that matter, and set up tracking to check them",
+    ],
+    deliverable: "A written audit of what we found and why it matters, followed by the agreed fixes, implemented and tested.",
   },
   {
-    id: "packaging",
-    name: "Content packaging",
-    body: "A great video with the wrong title and thumbnail doesn’t get seen. We work on the packaging with you, from the topic itself to the frame people click.",
-    points: ["Title brainstorming", "Thumbnail concepts and feedback", "Topic and format research", "Content performance review"],
+    id: "systems",
+    name: "Revenue systems & automation",
+    problem: "Enquiries arrive, but replies are slow, qualification is inconsistent, and too much depends on someone remembering.",
+    work: [
+      "Map how a lead moves from first contact to a booked conversation",
+      "Connect capture, qualification, follow-up, scheduling and your CRM",
+      "Automate the steps that repeat; keep people on the steps that need judgment",
+      "Use AI agents only where they genuinely do the job better",
+    ],
+    deliverable: "Working workflows in the tools you already use where possible, with documentation and a hand-over.",
   },
 ];
 
 export default function Services() {
   return (
-    <Section id="services" label="Services" titleId="services-title" title="Three ways we help your videos land.">
+    <Section id="services" label="Services" titleId="services-title" title="Three ways we help.">
       <Reveal delay={80}>
-        <p className="t-lead mt-6 max-w-[40rem] text-fg-muted">
-          Book one or combine them. Some creators want full edits; others need shorts or a second
-          opinion on packaging. We&apos;ll scope what fits your channel.
+        <p className="t-lead mt-6 max-w-[42rem] text-fg-muted">
+          Each engagement starts with the problem, not the tool. Most projects sit in one of these areas;
+          some touch all three, because acquisition, conversion and follow-up are connected.
         </p>
       </Reveal>
 
       <ul className="mt-16 border-b border-line lg:mt-20">
         {SERVICES.map((s, i) => (
           <Reveal as="li" key={s.id} delay={i * 60}>
-            <article id={`service-${s.id}`} className="grid scroll-mt-24 grid-cols-1 gap-6 border-t border-line py-10 md:grid-cols-9 md:gap-10 lg:py-14">
-              <h3 className="t-h3 text-fg md:col-span-4">{s.name}</h3>
-              <div className="md:col-span-5">
-                <p className="t-body text-fg-muted">{s.body}</p>
-                <ul className="t-small mt-6 grid grid-cols-1 gap-x-6 gap-y-2 text-fg sm:grid-cols-2">
-                  {s.points.map((p) => (
-                    <li key={p} className="flex gap-3">
-                      <span className="mt-[0.6em] h-px w-3 flex-none bg-fg-subtle" aria-hidden="true" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
+            <article id={`service-${s.id}`} aria-labelledby={`service-${s.id}-title`} className="grid scroll-mt-24 grid-cols-1 gap-8 border-t border-line py-12 md:grid-cols-9 md:gap-10 lg:py-16">
+              <div className="md:col-span-3">
+                <p className="t-small tabular-nums text-fg-subtle">0{i + 1}</p>
+                <h3 id={`service-${s.id}-title`} className="t-h3 mt-3 text-fg">
+                  {s.name}
+                </h3>
               </div>
+              <dl className="grid grid-cols-1 gap-8 md:col-span-6">
+                <div>
+                  <dt className="t-small text-fg-subtle">The problem</dt>
+                  <dd className="t-lead mt-2 text-fg">{s.problem}</dd>
+                </div>
+                <div>
+                  <dt className="t-small text-fg-subtle">What we do</dt>
+                  <dd className="mt-3">
+                    <ul className="t-body space-y-2 text-fg-muted">
+                      {s.work.map((w) => (
+                        <li key={w} className="flex gap-3">
+                          <span className="mt-[0.75em] h-px w-3 flex-none bg-fg-subtle" aria-hidden="true" />
+                          {w}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+                <div className="border-t border-line pt-6">
+                  <dt className="t-small text-fg-subtle">What you get</dt>
+                  <dd className="t-body mt-2 text-fg">{s.deliverable}</dd>
+                </div>
+              </dl>
             </article>
           </Reveal>
         ))}

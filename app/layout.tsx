@@ -16,7 +16,7 @@ const geist = Geist({
 
 
 const title = `${SITE_NAME} — ${SITE_TAGLINE}`;
-const keywords = ["YouTube editing", "YouTube video editor", "short-form repurposing", "YouTube Shorts editing", "content packaging", "YouTube thumbnails", "business YouTube", "creator studio"];
+const keywords = ["customer acquisition", "outbound prospecting", "referral partner program", "conversion optimization", "conversion path audit", "lead follow-up automation", "CRM automation", "revenue systems"];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

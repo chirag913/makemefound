@@ -1,8 +1,8 @@
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://makemefound.com";
 export const SITE_NAME = "MakeMeFound";
-export const SITE_TAGLINE = "YouTube content production for business creators";
+export const SITE_TAGLINE = "Find what’s blocking your growth. Fix it.";
 export const SITE_DESCRIPTION =
-  "MakeMeFound is a YouTube content production and growth studio. We help business and educational creators turn their expertise into compelling videos through long-form editing, content packaging and short-form repurposing.";
+  "MakeMeFound helps businesses find new customer opportunities, improve the path from enquiry to sale, and build systems that make growth more consistent — through targeted outreach, conversion optimization and practical automation.";
 export const CONTACT_EMAIL = "hello@makemefound.com";
 
 export const SOCIAL_LINKS = [
@@ -11,7 +11,7 @@ export const SOCIAL_LINKS = [
   { label: "X", href: "https://x.com/makemefoundai" },
 ];
 
-/** Channels we run ourselves. Work from these is in-house, not client work. */
+/** Channels we run ourselves. Work from these is our own, not client work. */
 export const OWN_CHANNELS = [
   {
     name: "The Beyond",

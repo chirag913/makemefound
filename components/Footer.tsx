@@ -27,7 +27,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-6">
             <FooterCol title="Services" links={SERVICES.map((s) => ({ label: s.label, href: `/#service-${s.id}` }))} />
-            <FooterCol title="Studio" links={[...NAV_LINKS, { label: "Contact", href: "/#contact" }]} />
+            <FooterCol title="Company" links={[...NAV_LINKS, { label: "Contact", href: "/#contact" }]} />
             <FooterCol title="Follow" external links={[...SOCIAL_LINKS, ...OWN_CHANNELS.map((c) => ({ label: c.name, href: c.url }))]} />
             <FooterCol title="Legal" links={LEGAL_LINKS} />
           </div>

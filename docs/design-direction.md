@@ -2,22 +2,31 @@
 
 ## Positioning
 
-**YouTube content production studio for business creators.**
-Hero: "You bring the expertise. We make the content work harder."
-Primary CTA: **Book a Call** (final section: **Book an intro call**). Secondary: **See our work**.
+**Customer acquisition and revenue systems.** We find what's blocking a business's growth,
+then fix it — through targeted outreach and referral partnerships, conversion optimization,
+and revenue systems & automation. Content production is offered when it supports growth.
 
-Early-stage and honest: no client counts, client results or testimonials. Real footage comes
-from channels we run (The Beyond, Suspect Stories) with dated public view counts.
+- Hero: "Find what's blocking your growth. Fix it."
+- Primary CTA: **Discuss Your Growth Goals** (everywhere). Secondary: **See How We Work**.
+- Principle: investigate before recommending. Sell outcomes and clearly defined work, not AI.
+  AI agents are one implementation method, never the headline.
+
+Early-stage and honest: no clients, case studies, results or testimonials. "Example
+engagements" are labelled as illustrative. YouTube work is from our own channels and is
+labelled as not client results.
+
+Homepage order: Hero (+ service index) → Problem → Services → How we work → Example
+engagements → Content production (reel + own channels) → About → Final CTA.
 
 ## Principles (what separates a studio site from a template)
 
-1. **The reel is the hero.** Real motion work, autoplaying muted, one tasteful sound toggle.
+1. **Type leads.** The hero is typographic; real work (the reel) appears where it is relevant.
 2. **One typeface.** Geist, weight 500, tight tracking, sentence case. Emphasis comes from
    white vs. grey — no decorative serif accents, no monospace labels, no ALL-CAPS tags.
 3. **Editorial grid.** Every section: hairline rule, small grey label in the left 3 columns,
    content in the right 9.
 4. **Hairlines over boxes.** No bordered cards, glows, gradients, marquees or cursor effects.
-5. **Only real work.** No placeholder slots or mock UI on the site itself.
+5. **Only real work.** No placeholder slots, mock dashboards or invented metrics.
 6. **Short copy, generous space.** Section padding 96–176 px; one CTA repeated sparingly.
 
 ## Tokens (`app/globals.css`)
@@ -46,5 +55,5 @@ Generated in code — see `tools/reel/README.md` to edit or re-render.
 
 Every booking CTA opens one intake form → `/api/growth-call` → Google Apps Script
 (`GOOGLE_SHEET_WEBHOOK_URL`), plus Postgres/Resend if configured. Payload keys unchanged:
-`businessName` = channel, `website` = channel URL, `serviceArea` = services,
-`idealAccounts` = channel & workflow.
+`businessName` = company, `website` = website, `serviceArea` = interests (comma-separated),
+`idealAccounts` = goals and where growth feels stuck.

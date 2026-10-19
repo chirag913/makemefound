@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useCallModal } from "./CallModalContext";
 import { trackEvent } from "@/lib/analytics";
-import { SERVICES } from "@/lib/nav";
+import { FORM_INTERESTS } from "@/lib/nav";
 
 type FormState = {
   name: string;
@@ -88,12 +88,12 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  // Services are stored as a comma-separated list in the existing `serviceArea` key,
+  // Interests are stored as a comma-separated list in the existing `serviceArea` key,
   // so the Google Sheet keeps receiving the same payload shape.
   const selected = form.serviceArea ? form.serviceArea.split(", ") : [];
   function toggleService(label: string) {
     const next = selected.includes(label) ? selected.filter((s) => s !== label) : [...selected, label];
-    handleFieldChange("serviceArea", SERVICES.map((s) => s.label).filter((l) => next.includes(l)).join(", "));
+    handleFieldChange("serviceArea", FORM_INTERESTS.filter((l) => next.includes(l)).join(", "));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -139,7 +139,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
       >
         <div className="flex items-center justify-between border-b border-line px-5 py-3.5 sm:px-6">
           <span className="t-small flex items-center gap-2.5 text-fg-muted">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> Intro call request
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> Growth enquiry
           </span>
           <button
             type="button"
@@ -163,8 +163,8 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                 Thanks — we&apos;ll be in touch.
               </h2>
               <p id="call-modal-desc" className="t-body mt-3 max-w-[42ch] text-fg-muted">
-                We&apos;ll look at your channel before we reply, then email you to set up a time for the
-                intro call.
+                We&apos;ll look at your business before we reply, then email you to set up a time to
+                talk it through.
               </p>
               <button
                 type="button"
@@ -177,11 +177,11 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
           ) : (
             <>
               <h2 id="call-modal-title" className="t-h3 text-fg">
-                Book an intro call
+                Discuss your growth goals
               </h2>
               <p id="call-modal-desc" className="t-body mt-2 text-fg-muted">
-                Tell us about your channel and where you need help. We&apos;ll review it and email you to
-                schedule a time.
+                Tell us what you&apos;re trying to achieve. We&apos;ll review it and email you to schedule a
+                conversation.
               </p>
 
               <form onSubmit={handleSubmit} className="mt-7 space-y-5">
@@ -226,7 +226,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="Channel or brand name" htmlFor="businessName">
+                  <Field label="Company" htmlFor="businessName">
                     <input
                       id="businessName"
                       name="businessName"
@@ -237,14 +237,14 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                       className={inputClasses}
                     />
                   </Field>
-                  <Field label="Channel link" htmlFor="website">
+                  <Field label="Website" htmlFor="website">
                     <input
                       id="website"
                       name="website"
                       inputMode="url"
                       autoComplete="url"
                       required
-                      placeholder="youtube.com/@yourchannel"
+                      placeholder="yourcompany.com"
                       value={form.website}
                       onChange={(e) => handleFieldChange("website", e.target.value)}
                       className={inputClasses}
@@ -254,35 +254,35 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
 
                 <fieldset>
                   <legend className="mb-2 flex w-full items-baseline justify-between text-xs font-medium text-fg-muted">
-                    What do you need help with?
+                    What would you like help with?
                     <span className="t-small text-fg-subtle">Pick any</span>
                   </legend>
                   <div className="flex flex-wrap gap-2">
-                    {SERVICES.map((svc) => {
-                      const on = selected.includes(svc.label);
+                    {FORM_INTERESTS.map((label) => {
+                      const on = selected.includes(label);
                       return (
                         <button
-                          key={svc.id}
+                          key={label}
                           type="button"
                           aria-pressed={on}
-                          onClick={() => toggleService(svc.label)}
+                          onClick={() => toggleService(label)}
                           className={`h-10 rounded-full border px-4 text-sm transition-colors focus-ring ${
                             on ? "border-fg bg-white/[0.06] text-fg" : "border-line-strong text-fg-muted hover:border-fg-subtle hover:text-fg"
                           }`}
                         >
-                          {svc.label}
+                          {label}
                         </button>
                       );
                     })}
                   </div>
                 </fieldset>
 
-                <Field label="Your channel and workflow" hint="Optional" htmlFor="idealAccounts">
+                <Field label="What are you trying to achieve, and where does growth feel stuck?" hint="Optional" htmlFor="idealAccounts">
                   <textarea
                     id="idealAccounts"
                     name="idealAccounts"
                     rows={3}
-                    placeholder="e.g. one long video a week, recorded on Mondays · want shorts from each · editing in-house today"
+                    placeholder="e.g. we get enquiries from ads but few become consultations · we rely on referrals and want a steadier pipeline"
                     value={form.idealAccounts}
                     onChange={(e) => handleFieldChange("idealAccounts", e.target.value)}
                     className={`${inputClasses} h-auto resize-none py-3`}
@@ -314,7 +314,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                     disabled={status === "submitting"}
                     className="group inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-full bg-fg px-6 text-[0.9375rem] font-medium text-bg transition-colors hover:bg-white focus-ring disabled:opacity-60"
                   >
-                    {status === "submitting" ? "Sending…" : "Request intro call"}
+                    {status === "submitting" ? "Sending…" : "Send enquiry"}
                     {status !== "submitting" && (
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="arrow-nudge">
                         <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
