@@ -10,8 +10,10 @@ thoughtful editing, content packaging, and short-form repurposing."
 - Primary CTA: **Book a Call** (final section: **Book an Intro Call**)
 - Secondary CTA: **See Our Work**
 
-We are early-stage. The site never claims client counts, view numbers, results or
-testimonials. Every media slot without real footage is labelled "Sample" or "Placeholder".
+We are early-stage. The site never claims client counts, client results or testimonials.
+Real footage comes from channels we run ourselves (The Beyond, Suspect Stories) and is
+labelled "In-house" with public YouTube view counts dated in `VIEWS_CHECKED`. Every media
+slot without real footage is labelled "Sample" or "Placeholder".
 
 ## Visual language — "edit suite"
 
@@ -67,7 +69,14 @@ Intro call CTA → Footer.
 ## Adding real work
 
 Edit `lib/portfolio.ts`: set `sample: false` and add `youtubeId`, or `videoSrc` + `poster`
-(files in `public/work/`). Only publish work you have permission to share.
+(files in `public/work/`). Mark one entry `featured: true` — it fills the hero monitor and
+leads the Our Work grid. Only publish work you have permission to share, and refresh
+`views` / `VIEWS_CHECKED` when you update counts.
+
+## Brand mark
+
+`public/logo-mark-violet.png`, `app/icon.png`, `app/apple-icon.png` and `app/favicon.ico`
+are recolored to the violet accent. The file was renamed so caches can't serve the old blue.
 
 ## Leads
 

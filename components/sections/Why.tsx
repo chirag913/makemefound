@@ -1,5 +1,6 @@
 import { SectionRule } from "../SectionHeader";
 import Reveal from "../Reveal";
+import { OWN_CHANNELS } from "@/lib/site";
 
 const REASONS = [
   {
@@ -42,9 +43,32 @@ export default function Why() {
                 <span className="t-label text-accent">Early-stage, on purpose</span>
                 <p className="t-body mt-3 text-fg-muted">
                   We&apos;re a new, small team. That means fewer creators at a time, more attention on each
-                  one, and the people on your intro call are the people doing the work. We&apos;d rather
-                  show you our process than make claims we can&apos;t back up.
+                  one, and the people on your intro call are the people doing the work. We also run our
+                  own channels, so we test formats on ourselves first.
                 </p>
+                <ul className="mt-6 divide-y divide-line border-t border-line">
+                  {OWN_CHANNELS.map((c) => (
+                    <li key={c.handle}>
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center justify-between gap-4 py-4 focus-ring"
+                      >
+                        <span>
+                          <span className="block font-medium tracking-[-0.015em] text-fg">{c.name}</span>
+                          <span className="mt-0.5 block text-sm text-fg-subtle">{c.about}</span>
+                        </span>
+                        <span className="t-label flex flex-none items-center gap-1.5 text-fg-muted transition-colors group-hover:text-accent-strong">
+                          {c.handle}
+                          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="arrow-nudge">
+                            <path d="M5 11 11 5M6 5h5v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           </div>

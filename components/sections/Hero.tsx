@@ -4,6 +4,10 @@ import MediaFrame, { Caption, Presenter } from "../media/MediaFrame";
 import Timeline from "../media/Timeline";
 import Timecode from "../media/Timecode";
 import Filmstrip from "../media/Filmstrip";
+import WorkPlayer from "../media/WorkPlayer";
+import { WORK } from "@/lib/portfolio";
+
+const FEATURED = WORK.find((w) => w.featured) ?? WORK[0];
 
 function Words({ text, from = 0, className = "" }: { text: string; from?: number; className?: string }) {
   return (
@@ -55,35 +59,19 @@ export default function Hero() {
       <div className="container-x mt-16 pb-16 sm:mt-20 lg:mt-24 lg:pb-20">
         <div className="relative">
           <div className="grid grid-cols-12 gap-3 sm:gap-4">
-            <MediaFrame
-              className="col-span-12 sm:col-span-9"
-              timecode={<Timecode />}
-              rec
-              guides
-              label="Placeholder · showreel coming soon"
-              light={{ x: "42%", y: "36%" }}
-            >
-              <Presenter className="left-[42%] h-[80%]" />
-              <span
-                aria-hidden="true"
-                className="absolute right-[6%] top-[16%] hidden aspect-video w-[26%] rounded-[var(--radius-xs)] border border-line-strong bg-white/[0.04] sm:block"
-              >
-                <span className="t-label absolute left-2 top-2 text-fg-faint">B-roll</span>
-              </span>
-              <span aria-hidden="true" className="absolute left-[5%] top-[58%] hidden flex-col gap-1.5 md:flex">
-                <span className="h-[2px] w-10 bg-accent" />
-                <span className="text-base font-semibold tracking-[-0.02em] text-fg">Your name</span>
-                <span className="text-sm text-fg-muted">Founder · Your channel</span>
-              </span>
-              <div className="absolute inset-x-0 bottom-[24%] text-center sm:bottom-[14%]" aria-hidden="true">
-                <Caption className="text-sm sm:text-lg">
-                  The idea is yours. The <span className="text-accent-strong">retention</span> is our job.
-                </Caption>
-              </div>
-            </MediaFrame>
+            <figure className="group relative col-span-12 sm:col-span-9">
+              <WorkPlayer item={FEATURED} priority />
+              <figcaption className="pointer-events-none absolute left-3 top-3 flex items-center gap-2 rounded-[var(--radius-xs)] bg-black/70 px-2.5 py-1.5 backdrop-blur-sm sm:left-4 sm:top-4">
+                <span className="dot dot-accent" aria-hidden="true" />
+                <span className="t-label text-fg">
+                  In-house · {FEATURED.channel}
+                  {FEATURED.views && <span className="text-fg-muted"> · {FEATURED.views} views</span>}
+                </span>
+              </figcaption>
+            </figure>
 
             <div className="col-span-3 hidden sm:block">
-              <MediaFrame aspect="auto" className="h-full" label="Short · 9:16" timecode="0:38" light={{ x: "50%", y: "30%" }}>
+              <MediaFrame aspect="auto" className="h-full" label="Short · sample" timecode={<Timecode start={0} />} light={{ x: "50%", y: "30%" }}>
                 <Presenter className="h-[58%]" />
                 <div className="absolute inset-x-2 top-[54%] text-center" aria-hidden="true">
                   <Caption className="text-[11px] lg:text-[13px]">

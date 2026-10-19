@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { WorkItem } from "@/lib/portfolio";
 import MediaFrame, { Caption, Presenter } from "./MediaFrame";
 
@@ -9,8 +9,18 @@ import MediaFrame, { Caption, Presenter } from "./MediaFrame";
  * YouTube embeds load only after a click (no third-party requests on page load),
  * and self-hosted video never autoplays with sound.
  */
-export default function WorkPlayer({ item }: { item: WorkItem }) {
+export default function WorkPlayer({ item, priority = false }: { item: WorkItem; priority?: boolean }) {
   const [playing, setPlaying] = useState(false);
+  const [thumb, setThumb] = useState<"hq720" | "hqdefault" | "none">("hq720");
+  const imgRef = useRef<HTMLImageElement>(null);
+  const onThumbError = () => setThumb((t) => (t === "hq720" && !item.poster ? "hqdefault" : "none"));
+
+  // An eager image can fail before hydration, when onError isn't attached yet.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) onThumbError();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once after mount
+  }, []);
   const videoRef = useRef<HTMLVideoElement>(null);
   const vertical = item.aspect === "9/16";
 
@@ -57,13 +67,23 @@ export default function WorkPlayer({ item }: { item: WorkItem }) {
   if (item.youtubeId) {
     return (
       <div className="frame" style={{ aspectRatio: item.aspect }}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- remote YouTube still, loaded lazily */}
+        <div className="footage" aria-hidden="true" />
+        {thumb !== "none" && (
+        // eslint-disable-next-line @next/next/no-img-element -- remote YouTube still; the embed itself loads only on click
         <img
-          src={item.poster ?? `https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg`}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
+          src={item.poster ?? `https://i.ytimg.com/vi/${item.youtubeId}/${thumb}.jpg`}
+          alt={`Thumbnail: ${item.title}`}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          ref={imgRef}
+          onError={onThumbError}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
         />
+        )}
+        <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <span className="t-code pointer-events-none absolute bottom-3 right-3 rounded-[var(--radius-xs)] bg-black/75 px-1.5 py-0.5 text-white sm:bottom-4 sm:right-4">
+          {item.duration}
+        </span>
         <PlayButton label={`Play ${item.title}`} onClick={() => setPlaying(true)} />
       </div>
     );

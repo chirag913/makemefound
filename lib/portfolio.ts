@@ -1,16 +1,18 @@
 /**
  * Portfolio entries.
  *
- * Every entry below is a SAMPLE SLOT — a labelled placeholder that shows the
- * format we produce, not client work. To publish real work, set `sample: false`
- * and add one media source:
+ * Real entries come from the channels we run ourselves (see OWN_CHANNELS in
+ * lib/site.ts) and are labelled "In-house". Entries with `sample: true` are
+ * labelled placeholders for formats we don't have public footage of yet.
+ * To publish more real work, set `sample: false` and add one media source:
  *
  *   youtubeId: "dQw4w9WgXcQ"        // loads a YouTube embed only after a click
  *   videoSrc:  "/work/clip.mp4"     // self-hosted, muted preview, click for sound
  *   poster:    "/work/clip.jpg"     // still shown before playback (recommended)
  *
  * Put self-hosted files in /public/work. Only publish work you have
- * permission to share, and never add view counts or results you can't verify.
+ * permission to share. `views` are public YouTube counts captured on the date in
+ * VIEWS_CHECKED — refresh or remove them; never add numbers you can't verify.
  */
 
 export type WorkCategory = "long-form" | "short-form" | "before-after" | "motion" | "breakdown";
@@ -26,6 +28,12 @@ export type WorkItem = {
   caption?: string;
   aspect: "16/9" | "9/16";
   sample: boolean;
+  /** Shown large at the top of the grid. */
+  featured?: boolean;
+  /** Which of our channels this ran on (in-house work). */
+  channel?: string;
+  /** Public YouTube view count, as shown on YouTube on VIEWS_CHECKED. */
+  views?: string;
   youtubeId?: string;
   videoSrc?: string;
   poster?: string;
@@ -40,28 +48,61 @@ export const WORK_CATEGORIES: { id: WorkCategory | "all"; label: string }[] = [
   { id: "breakdown", label: "Edit breakdowns" },
 ];
 
+export const VIEWS_CHECKED = "October 2026";
+
 export const WORK: WorkItem[] = [
   {
-    id: "lf-explainer",
+    id: "beyond-propeller",
     category: "long-form",
-    title: "Founder explainer",
-    format: "Long-form · talking head + B-roll",
-    duration: "12:40",
-    note: "Hook rebuilt from the strongest line in the recording, chapters, and supporting visuals for every claim.",
-    caption: "Here’s what nobody tells you about *pricing*",
+    title: "This Propeller will Change Aviation Forever!",
+    format: "Long-form · science explainer",
+    duration: "7:25",
+    note: "A technical idea explained in under eight minutes. Our most-watched upload on The Beyond.",
     aspect: "16/9",
-    sample: true,
+    sample: false,
+    featured: true,
+    channel: "The Beyond",
+    views: "2.1M",
+    youtubeId: "rLnkwe-nr5w",
   },
   {
-    id: "lf-tutorial",
+    id: "beyond-voyager",
     category: "long-form",
-    title: "Software walkthrough",
-    format: "Long-form · screen recording",
-    duration: "18:05",
-    note: "Zooms, cursor highlights and callouts so viewers never lose their place on screen.",
-    caption: "Click *here* — not where you’d expect",
+    title: "Unknown Force Detected: Voyager 1 Terrifying Encounter",
+    format: "Long-form · space documentary",
+    duration: "11:34",
+    note: "An eleven-minute space story on The Beyond.",
     aspect: "16/9",
-    sample: true,
+    sample: false,
+    channel: "The Beyond",
+    views: "410K",
+    youtubeId: "mibNC1BJ-50",
+  },
+  {
+    id: "suspect-dying",
+    category: "long-form",
+    title: "When Cops Realize The Suspect is Dying",
+    format: "Long-form · narrative breakdown",
+    duration: "27:31",
+    note: "A 27-minute narrative breakdown on Suspect Stories.",
+    aspect: "16/9",
+    sample: false,
+    channel: "Suspect Stories",
+    views: "471K",
+    youtubeId: "BnHAdL92oE4",
+  },
+  {
+    id: "beyond-silent-propeller",
+    category: "long-form",
+    title: "Who WINS the SILENT Propeller WAR?",
+    format: "Long-form · comparison explainer",
+    duration: "6:44",
+    note: "A head-to-head comparison explainer on The Beyond.",
+    aspect: "16/9",
+    sample: false,
+    channel: "The Beyond",
+    views: "192K",
+    youtubeId: "r4uyaJq9zlE",
   },
   {
     id: "sf-hook",

@@ -6,6 +6,23 @@ export const SITE_DESCRIPTION =
 export const CONTACT_EMAIL = "hello@makemefound.com";
 
 export const SOCIAL_LINKS = [
+  { label: "Instagram", href: "https://www.instagram.com/makemefoundai/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/makemefound" },
   { label: "X", href: "https://x.com/makemefoundai" },
+];
+
+/** Channels we run ourselves. Work from these is in-house, not client work. */
+export const OWN_CHANNELS = [
+  {
+    name: "The Beyond",
+    handle: "@thebeyondofficial",
+    url: "https://www.youtube.com/@thebeyondofficial",
+    about: "Space, science and engineering explainers.",
+  },
+  {
+    name: "Suspect Stories",
+    handle: "@suspect.stories",
+    url: "https://www.youtube.com/@suspect.stories",
+    about: "Long-form narrative breakdowns of real police interrogations.",
+  },
 ];

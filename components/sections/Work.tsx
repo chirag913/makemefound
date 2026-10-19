@@ -5,7 +5,8 @@ import SectionHeader from "../SectionHeader";
 import Reveal from "../Reveal";
 import WorkPlayer from "../media/WorkPlayer";
 import BeforeAfter from "../media/BeforeAfter";
-import { WORK, WORK_CATEGORIES, type WorkCategory } from "@/lib/portfolio";
+import { WORK, WORK_CATEGORIES, VIEWS_CHECKED, type WorkCategory } from "@/lib/portfolio";
+import { OWN_CHANNELS } from "@/lib/site";
 
 export default function Work() {
   const [filter, setFilter] = useState<WorkCategory | "all">("all");
@@ -19,7 +20,7 @@ export default function Work() {
         <SectionHeader
           index="02"
           label="Our Work"
-          aside={hasSamples ? "Sample formats" : undefined}
+          aside="In-house channels + sample formats"
           titleId="work-title"
           title={
             <>
@@ -27,9 +28,18 @@ export default function Work() {
             </>
           }
           intro={
-            hasSamples
-              ? "We’re a new studio, so this section shows labelled sample slots for the formats we make. Real edits replace them as work is cleared to share — ask on the call for samples relevant to your channel."
-              : "A selection of recent edits, shorts and packaging work."
+            <>
+              Real videos from the channels we run ourselves,{" "}
+              {OWN_CHANNELS.map((c, i) => (
+                <span key={c.handle}>
+                  <a href={c.url} target="_blank" rel="noopener noreferrer" className="link-underline rounded-sm text-fg focus-ring">
+                    {c.name}
+                  </a>
+                  {i < OWN_CHANNELS.length - 1 ? " and " : ""}
+                </span>
+              ))}
+              {hasSamples ? " — plus clearly labelled sample slots for formats we don’t have public footage of yet." : "."}
+            </>
           }
         />
 
@@ -79,8 +89,16 @@ export default function Work() {
           <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-10 pt-6 lg:grid-cols-12">
             {items.map((item, i) => {
               const vertical = item.aspect === "9/16";
-              // Shorts sit four to a row on desktop, two on mobile; 16:9 work two to a row.
-              const span = vertical ? "col-span-1 lg:col-span-3" : "col-span-2 lg:col-span-6";
+              // 12-col desktop grid: feature full width, real long-form three to a row,
+              // shorts four to a row (two on mobile), other 16:9 slots two to a row.
+              const featured = item.featured && (filter === "all" || filter === "long-form");
+              const span = vertical
+                ? "col-span-1 lg:col-span-3"
+                : featured
+                  ? "col-span-2 lg:col-span-12"
+                  : !item.sample && item.category === "long-form"
+                    ? "col-span-2 lg:col-span-4"
+                    : "col-span-2 lg:col-span-6";
               return (
                 <Reveal
                   as="li"
@@ -91,13 +109,21 @@ export default function Work() {
                   <article className="group h-full">
                     <WorkPlayer item={item} />
                     <div className="mt-4 flex items-start justify-between gap-4">
-                      <div>
-                        <h3 className="font-semibold tracking-[-0.02em] text-fg">{item.title}</h3>
-                        <p className="t-label mt-1.5 text-fg-subtle">{item.format}</p>
+                      <div className="min-w-0">
+                        <h3 className={`font-semibold tracking-[-0.02em] text-fg ${featured ? "text-xl sm:text-2xl" : ""}`}>{item.title}</h3>
+                        <p className="t-label mt-1.5 text-fg-subtle">
+                          {item.channel ? `${item.channel} · ` : ""}
+                          {item.format.replace(/^Long-form · /, "")}
+                          {item.views && <span className="text-fg-muted"> · {item.views} views</span>}
+                        </p>
                       </div>
-                      {item.sample && (
-                        <span className="t-label flex-none rounded-[var(--radius-xs)] border border-line-strong px-2 py-1 text-fg-subtle">
+                      {item.sample ? (
+                        <span className={`t-label flex-none rounded-[var(--radius-xs)] border border-line-strong px-2 py-1 text-fg-subtle ${vertical ? "hidden sm:inline-block" : ""}`}>
                           Sample
+                        </span>
+                      ) : (
+                        <span className="t-label flex-none rounded-[var(--radius-xs)] border border-accent-line bg-accent-soft px-2 py-1 text-accent-strong">
+                          In-house
                         </span>
                       )}
                     </div>
@@ -107,6 +133,12 @@ export default function Work() {
               );
             })}
           </ul>
+        )}
+
+        {items.some((w) => w.views) && (
+          <p className="t-label mt-10 text-fg-faint">
+            In-house work is from channels we own and run. View counts are public YouTube figures as of {VIEWS_CHECKED}.
+          </p>
         )}
       </div>
     </section>
