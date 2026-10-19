@@ -38,12 +38,12 @@ export default function Navbar() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <nav aria-label="Primary" className="container-x flex h-16 items-center justify-between">
+      <nav aria-label="Primary" className="container-x relative flex h-16 items-center justify-between">
         <Link href="/" className="focus-ring rounded-md" aria-label="MakeMeFound home">
           <Logo />
         </Link>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -57,7 +57,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden lg:block">
-          <Button size="sm" arrow onClick={() => openModal("navbar")}>
+          <Button size="sm" onClick={() => openModal("navbar")}>
             {PRIMARY_CTA}
           </Button>
         </div>
@@ -83,14 +83,13 @@ export default function Navbar() {
       {mobileOpen && (
         <div id="mobile-menu" className="border-t border-line lg:hidden">
           <ul className="container-x flex flex-col py-3">
-            {NAV_LINKS.map((link, i) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="flex items-baseline gap-4 border-b border-line py-4 text-lg tracking-[-0.02em] text-fg focus-ring"
+                  className="block border-b border-line py-4 text-2xl font-medium tracking-[-0.03em] text-fg focus-ring"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <span className="t-label text-fg-faint">0{i + 1}</span>
                   {link.label}
                 </a>
               </li>

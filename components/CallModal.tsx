@@ -135,11 +135,11 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
         aria-modal="true"
         aria-labelledby="call-modal-title"
         aria-describedby="call-modal-desc"
-        className="frame relative w-full max-w-xl !overflow-visible bg-surface animate-dialog-in"
+        className="relative w-full max-w-xl rounded-[var(--radius-md)] border border-line bg-surface shadow-2xl animate-dialog-in"
       >
         <div className="flex items-center justify-between border-b border-line px-5 py-3.5 sm:px-6">
-          <span className="t-label flex items-center gap-2.5 text-fg-muted">
-            <span className="dot dot-accent" aria-hidden="true" /> Intro call request
+          <span className="t-small flex items-center gap-2.5 text-fg-muted">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> Intro call request
           </span>
           <button
             type="button"
@@ -156,8 +156,8 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
         <div className="p-6 sm:p-8">
           {status === "success" ? (
             <div className="py-6">
-              <span className="t-label flex items-center gap-2 text-accent">
-                <span className="dot dot-accent" aria-hidden="true" /> Received
+              <span className="t-small flex items-center gap-2 text-accent">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> Received
               </span>
               <h2 id="call-modal-title" className="t-h3 mt-5 text-fg">
                 Thanks — we&apos;ll be in touch.
@@ -169,7 +169,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="mt-8 inline-flex h-11 items-center rounded-full border border-line-strong px-5 text-sm text-fg transition-colors hover:border-line-hover focus-ring"
+                className="mt-8 inline-flex h-11 items-center rounded-full border border-line-strong px-5 text-sm text-fg transition-colors hover:border-fg-subtle focus-ring"
               >
                 Back to the site
               </button>
@@ -255,7 +255,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                 <fieldset>
                   <legend className="mb-2 flex w-full items-baseline justify-between text-xs font-medium text-fg-muted">
                     What do you need help with?
-                    <span className="t-label text-fg-faint">Pick any</span>
+                    <span className="t-small text-fg-subtle">Pick any</span>
                   </legend>
                   <div className="flex flex-wrap gap-2">
                     {SERVICES.map((svc) => {
@@ -267,7 +267,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                           aria-pressed={on}
                           onClick={() => toggleService(svc.label)}
                           className={`h-10 rounded-full border px-4 text-sm transition-colors focus-ring ${
-                            on ? "border-accent bg-accent-soft text-fg" : "border-line-strong text-fg-muted hover:border-line-hover hover:text-fg"
+                            on ? "border-fg bg-white/[0.06] text-fg" : "border-line-strong text-fg-muted hover:border-fg-subtle hover:text-fg"
                           }`}
                         >
                           {svc.label}
@@ -302,8 +302,8 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
                 </Field>
 
                 {status === "error" && (
-                  <p role="alert" className="flex items-center gap-2 text-sm text-rec">
-                    <span className="dot bg-rec" aria-hidden="true" />
+                  <p role="alert" className="flex items-center gap-2 text-sm text-red-400">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-400" aria-hidden="true" />
                     {errorMessage}
                   </p>
                 )}
@@ -335,7 +335,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
 }
 
 const inputClasses =
-  "h-11 w-full rounded-[var(--radius-sm)] border border-line-strong bg-bg/60 px-3.5 text-[0.9375rem] text-fg placeholder:text-fg-faint transition-colors hover:border-line-hover focus:border-accent focus:outline-none";
+  "h-11 w-full rounded-[var(--radius-sm)] border border-line-strong bg-bg/60 px-3.5 text-[0.9375rem] text-fg placeholder:text-fg-subtle transition-colors hover:border-fg-subtle focus:border-accent focus:outline-none";
 
 function Field({
   label,
@@ -352,7 +352,7 @@ function Field({
     <div>
       <label htmlFor={htmlFor} className="mb-2 flex items-baseline justify-between text-xs font-medium text-fg-muted">
         {label}
-        {hint && <span className="t-label text-fg-faint">{hint}</span>}
+        {hint && <span className="t-small text-fg-subtle">{hint}</span>}
       </label>
       {children}
     </div>

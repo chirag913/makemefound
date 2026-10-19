@@ -1,117 +1,69 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   MakeMeFound — studio design tokens
-   One system. Sections never invent their own colors or spacing.
+   MakeMeFound — design tokens
+   Restraint is the system: one typeface, two greys, hairlines, real footage.
+   Violet appears only in the logo, focus states and small active details.
    ========================================================================== */
 
 :root {
-  /* Surfaces — deep charcoal, never pure black */
-  --color-bg: #09090b;
-  --color-bg-raised: #0e0e11;
-  --color-surface: #131317;
-  --color-surface-2: #1a1a1f;
+  --color-bg: #0a0a0b;
+  --color-bg-raised: #0f0f11;
+  --color-surface: #141416;
 
-  /* Text */
-  --color-fg: #f4f3f7;
-  --color-fg-muted: #a6a4b0;
-  --color-fg-subtle: #6e6c78;
-  --color-fg-faint: #45434d;
+  --color-fg: #f5f5f4;
+  --color-fg-muted: #9a9a9f;
+  --color-fg-subtle: #66666c;
 
-  /* Lines */
-  --color-line: rgba(244, 243, 247, 0.08);
-  --color-line-strong: rgba(244, 243, 247, 0.14);
-  --color-line-hover: rgba(244, 243, 247, 0.24);
+  --color-line: rgba(245, 245, 244, 0.1);
+  --color-line-strong: rgba(245, 245, 244, 0.18);
 
-  /* Violet — the only accent. Used for emphasis, active states and focus. */
   --color-accent: #8b7bff;
-  --color-accent-strong: #a597ff;
-  --color-accent-soft: rgba(139, 123, 255, 0.12);
-  --color-accent-line: rgba(139, 123, 255, 0.4);
 
-  /* Recording red — only for the REC indicator in media frames */
-  --color-rec: #ff4d4d;
+  --radius-sm: 6px;
+  --radius-md: 10px;
 
-  /* Radius — restrained; media frames are nearly square-cornered */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+  --container: 1360px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --section-y: clamp(96px, 11vw, 176px);
 
-  /* Elevation */
-  --shadow-frame: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset, 0 50px 100px -30px rgba(0, 0, 0, 0.8),
-    0 0 0 1px var(--color-line-strong);
-  --shadow-inset: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
-
-  /* Layout */
-  --container: 1280px;
-  --gutter: clamp(20px, 4vw, 48px);
-  --section-y: clamp(96px, 12vw, 168px);
-
-  /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-base: 280ms;
-  --dur-slow: 800ms;
 }
 
 @theme inline {
   --color-bg: var(--color-bg);
   --color-bg-raised: var(--color-bg-raised);
   --color-surface: var(--color-surface);
-  --color-surface-2: var(--color-surface-2);
   --color-fg: var(--color-fg);
   --color-fg-muted: var(--color-fg-muted);
   --color-fg-subtle: var(--color-fg-subtle);
-  --color-fg-faint: var(--color-fg-faint);
   --color-line: var(--color-line);
   --color-line-strong: var(--color-line-strong);
-  --color-line-hover: var(--color-line-hover);
   --color-accent: var(--color-accent);
-  --color-accent-strong: var(--color-accent-strong);
-  --color-accent-soft: var(--color-accent-soft);
-  --color-accent-line: var(--color-accent-line);
-  --color-rec: var(--color-rec);
 
   /* Aliases used by the legal pages */
-  --color-accent-hover: var(--color-accent-strong);
+  --color-accent-hover: var(--color-accent);
   --color-border: var(--color-line);
   --color-border-strong: var(--color-line-strong);
 
   --font-sans: var(--font-geist);
-  --font-label: var(--font-geist-label);
-  --font-serif: var(--font-instrument-serif);
 
-  --animate-fade-in: fade-in 0.4s var(--ease-out) forwards;
+  --animate-fade-in: fade-in 0.35s var(--ease-out) forwards;
   --animate-dialog-in: dialog-in 0.45s var(--ease-out) forwards;
 
   @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   @keyframes dialog-in {
-    from {
-      opacity: 0;
-      transform: translateY(12px) scale(0.985);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
   }
 }
 
-/* ==========================================================================
-   Base
-   ========================================================================== */
-
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 72px;
   color-scheme: dark;
   -webkit-text-size-adjust: 100%;
 }
@@ -123,196 +75,68 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+::selection {
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
 select option {
   background: var(--color-bg-raised);
   color: var(--color-fg);
 }
 
-::selection {
-  background: var(--color-accent);
-  color: #09090b;
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-.text-pretty {
-  text-wrap: pretty;
-}
-
 @layer components {
-/* ==========================================================================
-   Layout
-   ========================================================================== */
-
-.container-x {
-  width: 100%;
-  max-width: calc(var(--container) + var(--gutter) * 2);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-.section-y {
-  padding-block: var(--section-y);
-}
-
-/* ==========================================================================
-   Type scale
-   ========================================================================== */
-
-.t-display {
-  font-size: clamp(2.75rem, 7.4vw, 6.75rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
-  font-weight: 600;
-}
-.t-h2 {
-  font-size: clamp(2.25rem, 5vw, 4.25rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  font-weight: 600;
-}
-.t-h3 {
-  font-size: clamp(1.4rem, 2.1vw, 1.875rem);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  font-weight: 600;
-}
-.t-lead {
-  font-size: clamp(1.075rem, 1.4vw, 1.3rem);
-  line-height: 1.55;
-  letter-spacing: -0.012em;
-}
-.t-body {
-  font-size: 0.975rem;
-  line-height: 1.65;
-}
-.t-label {
-  font-family: var(--font-geist-label), ui-monospace, monospace;
-  font-size: 11px;
-  line-height: 1.4;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.t-code {
-  font-family: var(--font-geist-label), ui-monospace, monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Editorial emphasis: one phrase per headline, never a sentence */
-.t-em {
-  font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  font-size: 1.06em;
-}
-
-/* ==========================================================================
-   Surfaces
-   ========================================================================== */
-
-.panel {
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-inset);
-}
-
-/* A media monitor: footage, timelines, phone frames */
-.frame {
-  position: relative;
-  overflow: hidden;
-  background: #0b0b0e;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-frame);
-}
-
-/* Placeholder footage: a lit backdrop, not a decorative gradient */
-.footage {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 70% at var(--fx, 50%) var(--fy, 42%), rgba(244, 243, 247, 0.09), transparent 70%),
-    linear-gradient(180deg, #16161b, #0c0c0f);
-}
-.footage::after {
-  /* film grain */
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Rule-of-thirds guides used in monitor frames */
-.thirds {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(90deg, transparent calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px), transparent calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px)),
-    linear-gradient(180deg, transparent calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% - 0.5px), rgba(255, 255, 255, 0.06) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px), transparent calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% - 0.5px), rgba(255, 255, 255, 0.06) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px));
-}
-
-/* Restrained violet glow behind the hero composition only */
-.studio-light {
-  background: radial-gradient(50% 60% at 50% 0%, rgba(139, 123, 255, 0.16), transparent 70%);
-}
-
-.dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--color-fg-faint);
-  flex: none;
-}
-.dot-accent {
-  background: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-soft);
-}
-.dot-rec {
-  background: var(--color-rec);
-  animation: rec 1.6s var(--ease-in-out) infinite;
-}
-@keyframes rec {
-  0%,
-  100% {
-    opacity: 1;
+  .container-x {
+    width: 100%;
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
-  50% {
-    opacity: 0.35;
+  .section-y {
+    padding-block: var(--section-y);
   }
-}
 
-}
-
-/* Playhead sweep across timelines */
-.playhead {
-  animation: playhead 9s linear infinite;
-}
-@keyframes playhead {
-  from {
-    left: 0%;
+  /* Type scale — medium weight, tight tracking, sentence case */
+  .t-display {
+    font-size: clamp(2.6rem, 6.4vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    font-weight: 500;
   }
-  to {
-    left: 100%;
+  .t-h2 {
+    font-size: clamp(2rem, 4.2vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    font-weight: 500;
   }
+  .t-h3 {
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+  }
+  .t-lead {
+    font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+  }
+  .t-body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .t-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
 }
 
-/* ==========================================================================
-   Motion
-   ========================================================================== */
-
+/* Reveal on scroll — a short rise, once */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
+  transform: translateY(14px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
 }
 .reveal.is-visible {
   opacity: 1;
@@ -324,129 +148,24 @@ select option {
   background-size: 0% 1px;
   background-position: 0 100%;
   background-repeat: no-repeat;
-  transition: background-size var(--dur-base) var(--ease-out);
+  transition: background-size 300ms var(--ease-out);
 }
-.link-underline:hover {
-  background-size: 100% 1px;
-}
+.link-underline:hover { background-size: 100% 1px; }
 
-.arrow-nudge {
-  transition: transform var(--dur-base) var(--ease-out);
-}
-.group:hover .arrow-nudge {
-  transform: translateX(3px);
-}
+.arrow-nudge { transition: transform 300ms var(--ease-out); }
+.group:hover .arrow-nudge { transform: translateX(3px); }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .dot-rec,
-  .playhead {
-    animation: none;
-  }
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-
-/* ==========================================================================
-   Focus
-   ========================================================================== */
-
-.focus-ring {
-  outline: none;
-}
+.focus-ring { outline: none; }
 .focus-ring:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
-/* ==========================================================================
-   Studio motion layer
-   ========================================================================== */
-
-/* Headline: words rise in, staggered via inline animation-delay */
-.word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.35em);
-  filter: blur(8px);
-  animation: word-in 0.9s var(--ease-out) forwards;
-}
-@keyframes word-in {
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-/* Infinite horizontal strips — content is duplicated, so -50% loops seamlessly */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee var(--marquee-dur, 60s) linear infinite;
-}
-.marquee-reverse {
-  animation-direction: reverse;
-}
-.marquee-host:hover .marquee {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.edge-fade {
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-/* Outlined display type for the kinetic band */
-.t-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(244, 243, 247, 0.34);
-}
-
-/* Cursor spotlight on panels (coordinates set by <Spotlight />) */
-.panel {
-  position: relative;
-  isolation: isolate;
-}
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 400ms var(--ease-out);
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(139, 123, 255, 0.09), transparent 60%);
-}
-.panel:hover::before {
-  opacity: 1;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .word {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    animation: none;
-  }
-  .marquee {
-    animation: none;
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

@@ -1,13 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
 import Work from "@/components/sections/Work";
+import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import Why from "@/components/sections/Why";
 import FinalCTA from "@/components/sections/FinalCTA";
-import KineticBand from "@/components/sections/KineticBand";
-import Spotlight from "@/components/Spotlight";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const servicesSchema = {
@@ -29,13 +27,11 @@ export default function Home() {
         <Hero />
         <Services />
         <Work />
-        <KineticBand />
         <Process />
         <Why />
         <FinalCTA />
       </main>
       <Footer />
-      <Spotlight />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
     </>
   );

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_TAGLINE } from "@/lib/site";
 import { CallModalProvider } from "@/components/CallModalContext";
@@ -13,17 +13,7 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-label",
-  subsets: ["latin"],
-});
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-});
 
 const title = `${SITE_NAME} — ${SITE_TAGLINE}`;
 const keywords = ["YouTube editing", "YouTube video editor", "short-form repurposing", "YouTube Shorts editing", "content packaging", "YouTube thumbnails", "business YouTube", "creator studio"];
@@ -53,14 +43,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#0a0a0b",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${geist.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-fg">
         <OrganizationSchema />

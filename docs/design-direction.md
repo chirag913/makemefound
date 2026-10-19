@@ -2,85 +2,49 @@
 
 ## Positioning
 
-**YouTube content production & growth studio for business creators.**
-"We help business creators turn their expertise into compelling YouTube content through
-thoughtful editing, content packaging, and short-form repurposing."
+**YouTube content production studio for business creators.**
+Hero: "You bring the expertise. We make the content work harder."
+Primary CTA: **Book a Call** (final section: **Book an intro call**). Secondary: **See our work**.
 
-- Hero: "You bring the expertise. We make the content *work harder.*"
-- Primary CTA: **Book a Call** (final section: **Book an Intro Call**)
-- Secondary CTA: **See Our Work**
+Early-stage and honest: no client counts, client results or testimonials. Real footage comes
+from channels we run (The Beyond, Suspect Stories) with dated public view counts.
 
-We are early-stage. The site never claims client counts, client results or testimonials.
-Real footage comes from channels we run ourselves (The Beyond, Suspect Stories) and is
-labelled "In-house" with public YouTube view counts dated in `VIEWS_CHECKED`. Every media
-slot without real footage is labelled "Sample" or "Placeholder".
+## Principles (what separates a studio site from a template)
 
-## Visual language — "edit suite"
-
-Deep charcoal, white type, one violet accent. Media is presented the way an editor sees
-it: program monitors, timecode, rule-of-thirds guides, burned-in captions, NLE timelines,
-vertical cuts. Editorial headlines carry the argument; the media carries the craft.
-
-Avoid: stock photos, emoji, glassmorphism, floating blobs, random gradients, fake metrics.
+1. **The reel is the hero.** Real motion work, autoplaying muted, one tasteful sound toggle.
+2. **One typeface.** Geist, weight 500, tight tracking, sentence case. Emphasis comes from
+   white vs. grey — no decorative serif accents, no monospace labels, no ALL-CAPS tags.
+3. **Editorial grid.** Every section: hairline rule, small grey label in the left 3 columns,
+   content in the right 9.
+4. **Hairlines over boxes.** No bordered cards, glows, gradients, marquees or cursor effects.
+5. **Only real work.** No placeholder slots or mock UI on the site itself.
+6. **Short copy, generous space.** Section padding 96–176 px; one CTA repeated sparingly.
 
 ## Tokens (`app/globals.css`)
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `bg` / `bg-raised` | `#09090b` / `#0e0e11` | Page, alternating sections |
-| `surface` / `surface-2` | `#131317` / `#1a1a1f` | Panels, frames |
-| `fg` / `fg-muted` / `fg-subtle` / `fg-faint` | `#f4f3f7` … `#45434d` | Text hierarchy |
-| `line` / `line-strong` / `line-hover` | 8 / 14 / 24% white | Hairlines |
-| `accent` / `accent-strong` | `#8b7bff` / `#a597ff` | Emphasis, active, focus |
-| `rec` | `#ff4d4d` | REC dot and form errors only |
+| `bg` / `bg-raised` / `surface` | `#0a0a0b` / `#0f0f11` / `#141416` | Page, media backgrounds |
+| `fg` / `fg-muted` / `fg-subtle` | `#f5f5f4` / `#9a9a9f` / `#66666c` | Text hierarchy |
+| `line` / `line-strong` | 10% / 18% white | Hairlines |
+| `accent` | `#8b7bff` | Logo, focus rings, selected states only |
 
-Primary buttons are white on charcoal; violet is never a large fill.
-
-## Typography
-
-- **Geist** 600 for display (−0.05em tracking), body in Geist.
-- **Instrument Serif italic** for one emphasis phrase per headline (`.t-em`), usually violet.
-- **Geist Mono** for labels (`.t-label`) and timecode/data (`.t-code`).
+Type: `.t-display` (2.6→6 rem), `.t-h2` (2→3.75 rem), `.t-h3`, `.t-lead`, `.t-body`, `.t-small`.
 
 ## Components
 
-- `.panel` — surface card with hairline border and a cursor-following violet spotlight.
-- `.frame` + `MediaFrame` — monitor frame with grain, optional REC, timecode, thirds guides.
-- `Timeline` — NLE-style tracks (titles, B-roll, A-roll, voice, music) with markers and playhead.
-- `WorkPlayer` — sample slot, or click-to-load YouTube (`youtube-nocookie`), or self-hosted video
-  with `preload="none"` and no autoplay with sound.
-- `BeforeAfter` — accessible range-input comparison of raw vs edited.
-- `Filmstrip` / `KineticBand` — slow infinite marquees; pause on hover.
+- `Section` — the editorial grid shell.
+- `HeroReel` — muted autoplay + loop, pauses off-screen, "Play with sound" restarts with
+  audio, no autoplay under `prefers-reduced-motion`. MP4 (H.264/AAC) first, WebM fallback.
+- `WorkPlayer` — YouTube thumbnail; the embed loads only on click.
 
-Component classes live in `@layer components` so Tailwind utilities can override them.
+## Showreel
 
-## Motion
-
-Word-by-word headline rise, live 25fps timecode (only while visible), playhead sweep,
-filmstrip and type marquees, reveal-on-scroll, spotlight on hover. All disabled under
-`prefers-reduced-motion`.
-
-## Section order
-
-Nav (Services / Our Work / Process / About + Book a Call) → Hero + montage + filmstrip →
-01 Services → 02 Our Work → kinetic band → 03 Process → 04 Why MakeMeFound (About) →
-Intro call CTA → Footer.
-
-## Adding real work
-
-Edit `lib/portfolio.ts`: set `sample: false` and add `youtubeId`, or `videoSrc` + `poster`
-(files in `public/work/`). Mark one entry `featured: true` — it fills the hero monitor and
-leads the Our Work grid. Only publish work you have permission to share, and refresh
-`views` / `VIEWS_CHECKED` when you update counts.
-
-## Brand mark
-
-`public/logo-mark-violet.png`, `app/icon.png`, `app/apple-icon.png` and `app/favicon.ico`
-are recolored to the violet accent. The file was renamed so caches can't serve the old blue.
+Generated in code — see `tools/reel/README.md` to edit or re-render.
 
 ## Leads
 
-Every booking CTA opens one intake form that posts to `/api/growth-call`, which forwards to
-the Google Apps Script web app (`GOOGLE_SHEET_WEBHOOK_URL`). Payload keys are unchanged:
+Every booking CTA opens one intake form → `/api/growth-call` → Google Apps Script
+(`GOOGLE_SHEET_WEBHOOK_URL`), plus Postgres/Resend if configured. Payload keys unchanged:
 `businessName` = channel, `website` = channel URL, `serviceArea` = services,
 `idealAccounts` = channel & workflow.

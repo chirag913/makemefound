@@ -6,7 +6,7 @@ const base =
 const variants = {
   // White on charcoal. Violet stays an accent, not a button fill.
   primary: "bg-fg text-bg hover:bg-white",
-  secondary: "border border-line-strong text-fg hover:border-line-hover hover:bg-white/[0.03]",
+  secondary: "border border-line-strong text-fg hover:border-fg-subtle hover:bg-white/[0.03]",
   ghost: "text-fg-muted hover:text-fg",
 };
 
