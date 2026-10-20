@@ -92,20 +92,39 @@ ${rows
 </table></td></tr></table></body></html>`;
 
   const resend = new Resend(apiKey);
-  // The SDK reports failures in `error` rather than throwing — check it, or a bad key or
-  // unverified sender would look like success.
-  const { data: sent, error } = await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM,
-    to: recipients(),
-    replyTo: data.email,
-    subject: `New enquiry — ${data.businessName} (${data.name})`,
-    text,
-    html,
-  });
+  const configuredFrom = process.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM;
+  let from = configuredFrom;
+  let to = recipients();
+  let subject = `New enquiry — ${data.businessName} (${data.name})`;
 
-  if (error) {
-    throw new Error(`Resend rejected the email: ${error.name ?? "error"} — ${error.message}`);
+  // The SDK reports failures in `error` rather than throwing, so check it. Two common
+  // setup problems are recovered from automatically so the lead still arrives:
+  //  1. Sender domain not verified in Resend → retry with Resend's default sender.
+  //  2. Default sender can only email the Resend account owner → retry to that address
+  //     (Resend names it in the error message).
+  let lastError = "";
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const { data: sent, error } = await resend.emails.send({ from, to, replyTo: data.email, subject, text, html });
+    if (!error && sent?.id) {
+      if (attempt > 0) console.warn(`[enquiry] Resend delivered after fallback (from: ${from}, to: ${to.join(", ")}). ${lastError}`);
+      return "ok";
+    }
+    const message = error ? `${error.name ?? "error"} — ${error.message}` : "no message id returned";
+    lastError = `Resend rejected: ${message}`;
+
+    const owner = error?.message.match(/own email address \(([^)\s]+@[^)\s]+)\)/i)?.[1];
+    if (owner && !to.includes(owner)) {
+      lastError += ` → Fix: verify a domain at resend.com/domains and set RESEND_FROM_EMAIL, or set LEAD_NOTIFICATION_EMAIL=${owner}.`;
+      subject = `${subject} [for ${to.join(", ")}]`;
+      to = [owner];
+      continue;
+    }
+    if (/domain.*not verified|verify.*domain|invalid `from`|from.*invalid/i.test(error?.message ?? "") && from !== DEFAULT_FROM) {
+      lastError += " → Fix: finish verifying the sender domain at resend.com/domains (status must be Verified).";
+      from = DEFAULT_FROM;
+      continue;
+    }
+    break;
   }
-  if (!sent?.id) throw new Error("Resend returned no message id");
-  return "ok";
+  throw new Error(lastError);
 }
