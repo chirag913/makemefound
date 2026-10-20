@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { growthCallRequestSchema } from "@/lib/validation";
 import { insertGrowthCallRequest } from "@/lib/db";
-import { sendGrowthCallNotification } from "@/lib/email";
+import { sendLeadNotification, isEmailConfigured } from "@/lib/email";
 import { sendToGoogleSheet, isGoogleSheetConfigured } from "@/lib/googleSheet";
 import { CONTACT_EMAIL } from "@/lib/site";
 
+// Email (Resend) is the primary channel. Google Sheet and Postgres are optional extras
+// and are skipped entirely unless their env vars are set.
 const destinations = () => ({
+  email: isEmailConfigured(),
   googleSheet: isGoogleSheetConfigured(),
   database: Boolean(process.env.DATABASE_URL),
-  email: Boolean(process.env.RESEND_API_KEY),
 });
 
 /**
@@ -53,16 +55,17 @@ export async function POST(request: NextRequest) {
     phone: parsed.data.phone || "",
     idealAccounts: parsed.data.idealAccounts || "",
   };
+  const source = parsed.data.source || "";
 
   // Each destination is independent and best-effort: a failure in one (e.g. bad DB
   // credentials) doesn't block the others. But the visitor only sees success if at
   // least one configured destination actually stored the enquiry — otherwise the
   // lead would be silently lost.
   const configured = destinations();
-  const [dbResult, sheetResult, emailResult] = await Promise.allSettled([
-    insertGrowthCallRequest(data),
+  const [emailResult, sheetResult, dbResult] = await Promise.allSettled([
+    sendLeadNotification({ ...data, source }),
     sendToGoogleSheet(data),
-    sendGrowthCallNotification(data),
+    configured.database ? insertGrowthCallRequest(data) : Promise.resolve(),
   ]);
 
   const delivered: string[] = [];
@@ -71,12 +74,12 @@ export async function POST(request: NextRequest) {
   if (sheetResult.status === "rejected") console.error("[enquiry] Google Sheet failed:", sheetResult.reason);
   else if (sheetResult.value === "ok") delivered.push("googleSheet");
   if (emailResult.status === "rejected") console.error("[enquiry] Resend email failed:", emailResult.reason);
-  else if (configured.email) delivered.push("email");
+  else if (emailResult.value === "ok") delivered.push("email");
 
   if (delivered.length === 0) {
     console.error(
       "[enquiry] NOT STORED — no destination accepted it.",
-      Object.values(configured).some(Boolean) ? "Configured destinations all failed (see errors above)." : "No destination is configured: set GOOGLE_SHEET_WEBHOOK_URL in the hosting environment and redeploy.",
+      Object.values(configured).some(Boolean) ? "Configured destinations all failed (see errors above)." : "No destination is configured: set RESEND_API_KEY in the hosting environment and redeploy.",
       { email: data.email, businessName: data.businessName }
     );
     return NextResponse.json(

@@ -14,6 +14,8 @@ export const growthCallRequestSchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(320),
   phone: z.string().trim().max(50).optional().or(z.literal("")),
   idealAccounts: z.string().trim().max(1000).optional().or(z.literal("")),
+  // Which CTA opened the form (e.g. "hero"); included in the notification email only.
+  source: z.string().trim().max(60).optional().or(z.literal("")),
   // Honeypot field — real users never fill this in.
   company_website: z.string().max(0).optional().or(z.literal("")),
 });

@@ -28,12 +28,12 @@ const initialState: FormState = {
 };
 
 export default function CallModal() {
-  const { isOpen, closeModal } = useCallModal();
+  const { isOpen, closeModal, source } = useCallModal();
   if (!isOpen) return null;
-  return <CallModalDialog onClose={closeModal} />;
+  return <CallModalDialog onClose={closeModal} source={source} />;
 }
 
-function CallModalDialog({ onClose }: { onClose: () => void }) {
+function CallModalDialog({ onClose, source }: { onClose: () => void; source: string }) {
   const [form, setForm] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -106,7 +106,7 @@ function CallModalDialog({ onClose }: { onClose: () => void }) {
       const res = await fetch("/api/growth-call", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, source }),
       });
 
       if (!res.ok) {

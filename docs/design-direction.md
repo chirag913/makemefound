@@ -53,7 +53,8 @@ Generated in code — see `tools/reel/README.md` to edit or re-render.
 
 ## Leads
 
-Every booking CTA opens one intake form → `/api/growth-call` → Google Apps Script
-(`GOOGLE_SHEET_WEBHOOK_URL`), plus Postgres/Resend if configured. Payload keys unchanged:
-`businessName` = company, `website` = website, `serviceArea` = interests (comma-separated),
-`idealAccounts` = goals and where growth feels stuck.
+Every CTA opens one intake form → `/api/growth-call` → **Resend email** to
+`LEAD_NOTIFICATION_EMAIL` (default chirag@getmakemefound.com), reply-to set to the visitor.
+Google Sheet (`GOOGLE_SHEET_WEBHOOK_URL`) and Postgres (`DATABASE_URL`) are optional extras,
+skipped when unset. The visitor only sees success if at least one destination confirmed
+delivery; otherwise they're asked to email. `GET /api/growth-call` shows what's configured.
