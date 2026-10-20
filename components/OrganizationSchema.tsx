@@ -1,4 +1,4 @@
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SOCIAL_LINKS, OWN_CHANNELS } from "@/lib/site";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SOCIAL_LINKS, OWN_CHANNELS, CONTACT_EMAIL } from "@/lib/site";
 
 // Organization schema is used here rather than LocalBusiness because MakeMeFound serves
 // clients nationally rather than operating from a single physical storefront.
@@ -13,7 +13,7 @@ const organizationSchema = {
   name: SITE_NAME,
   url: SITE_URL,
   description: SITE_DESCRIPTION,
-  email: "hello@makemefound.com",
+  email: CONTACT_EMAIL,
   sameAs: [...SOCIAL_LINKS.map((s) => s.href), ...OWN_CHANNELS.map((c) => c.url)],
 };
 

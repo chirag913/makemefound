@@ -3,7 +3,7 @@ export const SITE_NAME = "MakeMeFound";
 export const SITE_TAGLINE = "Find what’s blocking your growth. Fix it.";
 export const SITE_DESCRIPTION =
   "MakeMeFound helps businesses find new customer opportunities, improve the path from enquiry to sale, and build systems that make growth more consistent — through targeted outreach, conversion optimization and practical automation.";
-export const CONTACT_EMAIL = "hello@makemefound.com";
+export const CONTACT_EMAIL = "chirag@getmakemefound.com";
 
 export const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/makemefoundai/" },

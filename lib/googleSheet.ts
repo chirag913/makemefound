@@ -1,6 +1,6 @@
 // Sends an enquiry to a Google Sheet via an Apps Script Web App
 // (see google-apps-script/Code.gs for the script that receives this POST,
-// appends a row, and emails hello@makemefound.com).
+// appends a row, and emails chirag@getmakemefound.com).
 
 export function isGoogleSheetConfigured() {
   return Boolean(process.env.GOOGLE_SHEET_WEBHOOK_URL?.trim());

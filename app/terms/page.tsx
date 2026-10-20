@@ -118,8 +118,8 @@ export default function TermsPage() {
               <h2 className="text-lg font-semibold text-fg">9. Contact Us</h2>
               <p className="mt-3">
                 Questions about these Terms can be sent to{" "}
-                <a href="mailto:hello@makemefound.com" className="text-accent hover:text-accent-hover">
-                  hello@makemefound.com
+                <a href="mailto:chirag@getmakemefound.com" className="text-accent hover:text-accent-hover">
+                  chirag@getmakemefound.com
                 </a>
                 .
               </p>

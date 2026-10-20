@@ -22,7 +22,7 @@
  * Existing sheets keep their old header row; rename row 1 by hand if you want the new labels.
  */
 
-const NOTIFICATION_EMAIL = "hello@makemefound.com";
+const NOTIFICATION_EMAIL = "chirag@getmakemefound.com";
 
 const HEADERS = [
   "Timestamp",
